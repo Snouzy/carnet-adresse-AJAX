@@ -1,0 +1,171 @@
+/* 
+===============
+ General 
+===============*/
+.white{
+    background-color: white;
+}
+.row {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-bottom: 20rem;
+}
+.actions-bar {
+    display: flex;
+    justify-content: space-between;
+}
+.navbar {
+    background-color: #18AEE0 !important;
+}
+
+#ajax_msg {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    z-index: 1;
+    text-align: center;
+    border-radius: 2px;
+    display: none;
+    background-color: green !important;
+}
+#ajax_msgerror {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    z-index: 1;
+    text-align: center;
+    border-radius: 2px;
+    display: none;
+    background-color: red !important;
+}
+
+
+
+/* 
+===============
+ Tables 
+===============*/
+#createForm {
+    display: none;
+}
+
+#first-line {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+#first-line > p {
+    font-size: 5vh;
+    margin-bottom: 0 !important;
+}
+
+/* 
+===============
+ Buttons 
+===============*/
+.customBtn {
+    color: #fff !important;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 45px;
+    padding: 3px 20px;
+    position: relative;
+    text-decoration: none;
+    border-width: 0;
+    text-transform: none !important;
+}
+
+.customBtn:hover {
+    text-decoration: none;
+}
+
+.customBtn-1 {
+    background: #08A1CA;
+    font-weight: 100;
+    margin-bottom: 1rem;
+}
+
+.customBtn-1:hover {
+    background: rgba(225, 51, 45, 0);
+    color: #08A1CA !important;
+    letter-spacing: 1px;
+}
+
+.customBtn-1 svg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+
+.customBtn-1 rect {
+    fill: none;
+    stroke: #08A1CA;
+    stroke-width: 2;
+    stroke-dasharray: 422, 0;
+    transition: all 0.35s linear;
+}
+
+
+.customBtn-1:hover rect {
+    stroke-width: 5;
+    stroke-dasharray: 15, 310;
+    stroke-dashoffset: 48;
+    transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* 
+===============
+Autre 
+===============*/
+
+a[href="allContacts.php"] {
+    font-size: 20px;
+}
+.editable {
+    cursor: pointer;
+}
+
+.editable:hover {
+    background-color: #def4fb;
+    background-size: 100%;
+}
+
+
+
+
+/* 
+===============
+Titles & descrptions 
+===============*/
+.container-intro {
+    width: 60%;
+    margin: 0 auto;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .container-info {
+        width: 100%;
+        margin: 0;
+    }
+}
+h1 { color: #111; font-family: 'Open Sans Condensed', sans-serif; font-size: 64px; font-weight: 700; line-height: 64px; margin: 0 0 0; padding: 20px 30px; text-align: center; text-transform: uppercase; }
+
+p { color: #111; font-family: 'Open Sans', sans-serif; font-size: 16px; line-height: 28px; margin: 0 0 48px; }
+
+/* 
+===============
+Date & Name (Lined)
+===============*/
+.text-line { color: #111; display: block; font-family: 'Open Sans', sans-serif; font-size: 16px; position: relative; text-align: center; z-index: 1; }
+.text-line:before { border-top: 1px solid #111; content: ""; position: absolute; top: 12px; left: 0; width: 100%; z-index: -1; }
+.text-line span { background: #fdfdfd; padding: 0 10px; text-transform: uppercase; }
+.text-line:nth-child(3) {margin-bottom: 3vh;}
+.line { border-top: 1px solid #111; display: block; margin-top: 60px; padding-top: 50px; position: relative; }
+
+.resume { text-align: center; }
