@@ -6,11 +6,11 @@ try {
     $id = $_POST['id'];
     $readOneQuery = "SELECT * FROM ca2 WHERE id = :id";
     $statement = $conn->prepare($readOneQuery);
-
+    setlocale(LC_TIME, 'fr_FR.utf8','fra');
     $statement->execute(array(":id" => $id));
     $statement->execute();
     $contact = $statement->fetch(PDO::FETCH_ASSOC);
-    $create_date = strftime("%b %d, %Y", strtotime($contact['dateCreation']));
+    $create_date = strftime("%a %d %B %Y", strtotime($contact['dateCreation']));
 
     $output = "
     <tr>
@@ -35,7 +35,7 @@ try {
             onblur=\"update(this, 'ville', '{$contact['id']}')\">" . $contact['ville'] . "</div>
         </td>
         <td> $create_date </td>
-        <td style=\"width: 5%;\">
+        <td style=\"width: 5%; text-align:center\">
                 <button class='btn-danger' onclick=\"deleteTask('{$contact['id']}')\">
                         <i class=\"fa fa-times\"></i>
                 </button>
@@ -43,6 +43,6 @@ try {
     </tr>";
     echo $output;
 
-} catch (PDOException $ex){
-    echo "Une erreur est survenue " .$ex->getMessage();
+} catch (PDOException $err){
+    echo "Une erreur est survenue " .$err->getMessage();
 }

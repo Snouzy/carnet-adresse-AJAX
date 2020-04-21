@@ -67,6 +67,10 @@
 ===============
  Buttons 
 ===============*/
+.btn-danger {
+    border-radius: 20px !important;
+    border: none !important;
+}
 .customBtn {
     color: #fff !important;
     cursor: pointer;
@@ -126,7 +130,7 @@ Autre
 ===============*/
 
 a[href="allContacts.php"] {
-    font-size: 20px;
+    font-size: 16px;
 }
 .editable {
     cursor: pointer;

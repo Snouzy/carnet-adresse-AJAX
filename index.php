@@ -84,7 +84,7 @@
                     <svg>
                         <rect x="0" y="0" fill="none" width="100%" height="100%" />
                     </svg>
-                    Ajouter
+                    Ajouter <i class="fa fa-plus-circle"></i>
                 </a>
             </div>
             <div style="height: 40vh; overflow: auto;">
@@ -108,7 +108,7 @@
         </section>
         <!--== end Contacts ==-->
         <section class="col col-xs-12 col-sm-6 main">
-            <h3>Coordonnées </h3><hr>
+            <h3>Coordonnées <i class="fa fa-info-circle" style="color:#08A1CA" aria-hidden="true"></i></h3><hr>
             <table class="table table-striped table-bordered table-responsive">
                 <thead>
                 <tr>
@@ -122,7 +122,7 @@
                 </tr>
                 </thead>
 
-                <tbody id="task-list"> </tbody>
+                <tbody id="contact-preview"> </tbody>
             </table>
         </section>
 

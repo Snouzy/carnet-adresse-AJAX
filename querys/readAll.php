@@ -5,7 +5,7 @@ include_once '../Database.php';
 try{
     $readQuery = "SELECT * FROM ca2";
     $statement = $conn->query($readQuery);
-    while($contact = $statement->fetch(PDO::FETCH_OBJ)){
+    while($contact = $statement->fetch(PDO::FETCH_OBJ)) {
         $create_date = strftime("%b %d, %Y", strtotime($contact->dateCreation));
         $output = "
         <tr>
@@ -16,8 +16,7 @@ try{
             
             <td title='Cliquez pour modifier'> 
                 <div class='editable' onclick=\"makeElementEditable(this)\"
-                onblur=\"update(this, 'prenom', '{$contact->id}')\"> $contact->prenom 
-            </div> 
+                onblur=\"update(this, 'prenom', '{$contact->id}')\"> $contact->prenom </div> 
             </td>
             
             <td title='Cliquez pour modifier'> 
@@ -46,6 +45,6 @@ try{
         echo $output;
     }
 
-} catch (PDOException $ex){
-    echo "Une erreur est survenue " .$ex->getMessage();
+} catch (PDOException $err){
+    echo "Une erreur est survenue " .$err->getMessage();
 }

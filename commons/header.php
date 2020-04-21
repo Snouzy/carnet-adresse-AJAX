@@ -49,12 +49,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">Carnet d'adresse Netty.fr
-            </a>
+            <a class="navbar-brand" href="index.php"><i class="fa fa-home" aria-hidden="true"></i> Accueil</a>
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="allContacts.php"><i class="fa fa-eye-slash"></i>&nbsp; Voir tous les contacts</a></li>
+                <li><a href="allContacts.php">&nbsp; Voir tous les contacts <i class="fa fa-eye-slash"></i> </a></li>
             </ul>
         </div>
     </div>

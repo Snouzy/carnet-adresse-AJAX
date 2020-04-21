@@ -109,11 +109,11 @@ function deleteTask(taskId) {
             data: {id:taskId},
             success: function (data) {
                 $('#ajax_msg').css("display", "block").delay(3000).slideUp(300).html(data);
+                //Màj des listes
+                $('#all-contact-list').load('querys/readAll.php');
+                $('#contact-list').load('querys/readNames.php');
             }
         });
-
-        $('#task-list').load('querys/readAll.php');
-        $('#contact-list').load('querys/readNames.php');
     }
     return false;
 }
@@ -125,8 +125,7 @@ function displayInfo(taskId) {
         data: { id:taskId },
         success: function (data) {
             $('#ajax_msg').css("display", "block").delay(3000).slideUp(300).html("Contact récupéré");
-            $("#task-list").html(data);
+            $("#contact-preview").html(data);
         }
     });
-    // $("#task-list").load('readOne.php');
 }
