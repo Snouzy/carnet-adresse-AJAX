@@ -6,7 +6,8 @@ try{
     $readQuery = "SELECT * FROM ca2";
     $statement = $conn->query($readQuery);
     while($contact = $statement->fetch(PDO::FETCH_OBJ)) {
-        $create_date = strftime("%b %d, %Y", strtotime($contact->dateCreation));
+        setlocale(LC_TIME, 'fr_FR.utf8','fra');
+        $create_date = strftime("%a %d %b %Y", strtotime($contact->dateCreation));
         $output = "
         <tr>
             <td title='Cliquez pour modifier'>

@@ -15,6 +15,21 @@ $(document).ready(function () {
         e.preventDefault();
         $("#createForm").fadeIn();
     })
+
+    // Quand l'utilisateur recherche
+    
+    $('#search').keyup(function() {
+        var typedWord = $(this).val();
+        $.ajax({
+            url: 'querys/readSearch.php',
+            method: 'POST',
+            data: {word: typedWord},
+            success: function(data){
+                console.log(data);
+            }
+        })
+    })
+
     // A l'envoi du formulaire
     $('#create-contact').submit(function (event) {
         event.preventDefault();

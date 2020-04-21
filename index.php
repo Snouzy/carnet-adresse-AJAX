@@ -21,7 +21,19 @@
 </div class="container-intro">
     <!--== end Introduction area ==-->
 <div class="container-fluid">
-    <div class="row">
+    <div class="s128">
+        <form>
+            <div class="inner-form">
+                <div class="row">
+                    <div class="input-field second">
+                        <input type="search" placeholder="Prénom du contact" id="search"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row row-contact">
         <section class="col col-xs-12 col-sm-6 col-md-8 col-lg-6 white" id="createForm">
             <h3 class="text-primary">Créer un contact</h3><hr>
             <form id="create-contact" action="" method="post">
