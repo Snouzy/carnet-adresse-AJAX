@@ -37,7 +37,7 @@ try {
         <td> $create_date </td>
         <td style=\"width: 5%; text-align:center\">
                 <button class='btn-danger' onclick=\"deleteContact('{$contact['id']}')\">
-                        <i class=\"fa fa-times\"></i>
+                    <i class=\"fa fa-times\"></i>
                 </button>
             </td>
     </tr>";

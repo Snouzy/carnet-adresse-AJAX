@@ -1,4 +1,4 @@
-<?php $pageTitle = "Gérer les contacts"; ?>
+<?php $pageTitle = "Tous les contacts"; ?>
 
 <?php include_once 'commons/header.php';?>
 

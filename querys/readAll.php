@@ -2,7 +2,7 @@
 
 include_once '../Database.php';
 
-try{
+try {
     $readQuery = "SELECT * FROM ca2 ORDER BY name";
     $statement = $conn->query($readQuery);
     
@@ -33,7 +33,7 @@ try{
 
             <td title='Cliquez pour modifier'> 
                 <div class='editable' onclick=\"makeElementEditable(this)\" 
-                onblur=\"update(this, 'ville', '{$contact->id}')\"> $contact->ville </div> 
+                onblur=\"updateVille(this, 'ville', '{$contact->id}')\"> $contact->ville </div> 
             </td>
             
             <td> $create_date </td>
@@ -46,7 +46,10 @@ try{
         </tr>";
         echo $output;
     }
-
+//<td title='Cliquez pour modifier'>
+//<div class='editable' onclick=\"makeElementEditable(this)\" 
+//onblur=\"updateMailValidator(this, 'email', '{$contact['id']}')\">" . $contact['email'] . "</div>
+//</td>
 } catch (PDOException $err){
     echo "Une erreur est survenue " .$err->getMessage();
 }

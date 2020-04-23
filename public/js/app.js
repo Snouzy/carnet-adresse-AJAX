@@ -1,8 +1,11 @@
-
+/* 
+===============
+Regexps 
+===============*/
 var emailValidator = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 var nomEtPrenomValidator = /^[a-zA-Zéèàêëöîïâûü]+(([' -][a-zA-Zéèàêëöîïâûü ])?[a-zA-Zéèàêëöîïâûü]*)*$/;
 var telValidator = /^(([+]{1}[0-9]{2}|0)[0-9]{9})$/;
-// Prends toutes les possibilités des villes instanciées, afin de voir si la réponse est contenu dans l'un de ces indexs du tableau (pour eviter de changer la "value")
+// Prends toutes les possibilités au démarrage des villes possibles, afin de voir si le texte est contenu dans l'un de ces indexs du tableau (pour eviter que l'utilisateur puisse changer la "value")
 const possibilites = [];
 $('option').each((index, el) => {
     possibilites.push(el.value)
@@ -97,6 +100,7 @@ function checkForm() {
     return true;
 }
 
+/* Rend un élément éditable et l'aspect qui va avec */
 function makeElementEditable(div) {
     $(div).css({
         "border": "1px solid lavender",
@@ -106,10 +110,14 @@ function makeElementEditable(div) {
     .attr("contentEditable", "true");
 }
 
+/* 
+===============
+Vérifications effectuées lors de la modification d'un conctact 
+===============*/
 function updateVille(target, telephone, id) {
     console.log(possibilites);
     if(!possibilites.includes($(target).html().toLowerCase())){
-        displayAlert(3000, 300, "La ville n'est pas valide", true);
+        displayAlert(1000, 300, "La ville n'est pas valide", true);
         return false
     }
     update(target, telephone, id);
@@ -123,6 +131,7 @@ function updateNomOuPrenom(target, telephone, id) {
     update(target, telephone, id);
 }
 function updateTelValidator(target, telephone, id) {
+    console.log($(target).html());
     if(!telValidator.test($(target).html())) {
         displayAlert(1000, 300, "Le numéro de téléphone n'est pas valide", true);
         return false
@@ -132,16 +141,20 @@ function updateTelValidator(target, telephone, id) {
 
 function updateMailValidator(target, email, id) {
     if(!emailValidator.test($(target).html())) {
+        console.log(!emailValidator.test($(target).html()));
         displayAlert(1000, 300, "L'email n'est pas valide", true);
         return false
     }
     update(target, email, id);
 }
+/* 
+===============
+Fin des vérifications 
+===============*/
 
 /* Fonction générique qui est appelée après avoir vérifier les données saisies */
 function update(target, props, id) {
-    var data =target.textContent;
-    console.log(arguments);
+    var data = target.textContent;
     target.style.border = "none";
     target.style.padding = "0px";
     target.style.background = "#ececec";
@@ -157,7 +170,8 @@ function update(target, props, id) {
     });
     $('#contact-list').load('querys/readNames.php');
 }
-/* */
+
+/* supprime et met à jour les listes */
 function deleteContact(id) {
     if(confirm("Voulez-vous vraiment supprimer ce contact ?")){
         $.ajax({
@@ -176,6 +190,7 @@ function deleteContact(id) {
     return false;
 }
 
+/* Permet de preview un contact */
 function displayInfo(id) {
     $.ajax({
         url: 'querys/readOne.php',
@@ -188,6 +203,7 @@ function displayInfo(id) {
     });
 }
 
+/* Toasts notifications en bas à droite */
 function displayAlert(delay, slideUp, html, isError = false) {
     if(!isError) {
         $('#ajax_msg').css("display", "block").delay(delay).slideUp(slideUp).html(html);
