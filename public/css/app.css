@@ -2,13 +2,25 @@
 ===============
  General 
 ===============*/
+* {
+    font-family: Poppins, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+ul, ol {
+    margin: 0;
+}
 .white{
     background-color: white;
 }
 .row {
-    display: flex !important;
+    display: flex;
     justify-content: center !important;
     align-items: center !important;
+    
+}
+.row-search {
+    justify-content: start !important;
+}
+.row-contact {
     margin-bottom: 20rem;
 }
 .actions-bar {
@@ -67,6 +79,10 @@
 ===============
  Buttons 
 ===============*/
+button[name="createBtn"] {
+    color: #08A1CA !important;
+    border-radius: 20px !important;
+}
 .btn-danger {
     border-radius: 20px !important;
     border: none !important;
@@ -158,9 +174,9 @@ Titles & descrptions
         margin: 0;
     }
 }
-h1 { color: #111; font-family: 'Open Sans Condensed', sans-serif; font-size: 64px; font-weight: 700; line-height: 64px; margin: 0 0 0; padding: 20px 30px; text-align: center; text-transform: uppercase; }
+h1 { color: #111; font-family: 'Poppins', sans-serif; font-size: 64px; font-weight: 700; line-height: 64px; margin: 0 0 0; padding: 20px 30px; text-align: center; text-transform: uppercase; }
 
-p { color: #111; font-family: 'Open Sans', sans-serif; font-size: 16px; line-height: 28px; margin: 0 0 48px; }
+.resume { color: #111; font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 28px; margin: 0 0 48px; text-align: center;}
 
 /* 
 ===============
@@ -172,4 +188,104 @@ Date & Name (Lined)
 .text-line:nth-child(3) {margin-bottom: 3vh;}
 .line { border-top: 1px solid #111; display: block; margin-top: 60px; padding-top: 50px; position: relative; }
 
-.resume { text-align: center; }
+
+
+/* 
+===============
+ Search Bar 
+===============*/
+.s128 {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: center;
+        align-items: center;
+    font-family: 'Poppins', sans-serif;
+    padding: 15px;
+}
+.s128 .container-search {
+    width: 100%;
+    max-width: 570px;
+    margin: 0;
+}
+.s128 .container-search .inner-form .row .results-field {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+        justify-content: center;
+  }
+  .s128 .container-search .inner-form .row .results-field input {
+    height: 60px;
+    width: 60px;
+    border: 0;
+    display: block;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+
+.s128 .container-search .inner-form .row .results-field input.placeholder {
+    color: #ccc;
+    font-size: 18px;
+    font-weight: 300;
+    opacity: 1;
+  }
+
+.s128 .container-search .inner-form .row .results-field input:hover, .s128 .container-search .inner-form .row .results-field input:focus {
+    box-shadow: none;
+    outline: 0;
+}
+.s128 .container-search .inner-form .row .results-field.search input {
+    padding: 10px 60px 10px 0;
+    border-radius: 3px;
+    width: 60px;
+    transition: width .3s;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg fill='%23ccc' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3e%3cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3e%3c/svg%3e");
+    background-position: calc(100% - 14px) 14px;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    background-size: 34px 34px;
+}
+.s128 .container-search .inner-form .row .results-field.search input.placeholder {
+    color: #666;
+    transition: opacity .1s;
+}
+.s128 .container-search .inner-form .row .results-field.search input:focus {
+    width: 100%;
+    padding-left: 15px;
+}
+.row-result {
+    display: none;
+    margin: 0;
+    width: 100%;
+}
+.results {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    width: 100%;
+}
+.result {
+    position: relative;
+    display: block;
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 10px 60px 10px 0;
+    border-radius: 3px;
+    width: inherit;
+    transition: width .3s;
+}
+
+.result-contact {
+    font-size: 2rem;
+}
+
+.result-contact.result-contact-find {
+    cursor: pointer;    
+    transition: all .5s ease;
+}
+.result-contact.result-contact-find:hover {
+    letter-spacing: .3rem;
+    color: #08A1CA;
+}

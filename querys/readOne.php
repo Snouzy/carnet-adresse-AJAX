@@ -6,11 +6,11 @@ try {
     $id = $_POST['id'];
     $readOneQuery = "SELECT * FROM ca2 WHERE id = :id";
     $statement = $conn->prepare($readOneQuery);
-    setlocale(LC_TIME, 'fr_FR.utf8','fra');
     $statement->execute(array(":id" => $id));
     $statement->execute();
     $contact = $statement->fetch(PDO::FETCH_ASSOC);
-    $create_date = strftime("%a %d %B %Y", strtotime($contact['dateCreation']));
+    setlocale(LC_TIME, 'fr_FR.utf8','fra');
+    $create_date = strftime("%a %d %b %Y", strtotime($contact['dateCreation']));
 
     $output = "
     <tr>

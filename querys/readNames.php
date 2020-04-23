@@ -3,7 +3,7 @@
 include_once '../Database.php';
 
 try {
-    $readQuery = "SELECT id, name, prenom FROM ca2";
+    $readQuery = "SELECT id, name, prenom FROM ca2 ORDER BY name";
     $statement = $conn->query($readQuery);
     $contact = $statement->fetchAll(PDO::FETCH_ASSOC);
     for($i = 0; $i < count($contact); $i++) {
