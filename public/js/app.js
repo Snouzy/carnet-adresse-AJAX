@@ -152,7 +152,7 @@ function updateMailValidator(target, email, id) {
 Fin des vérifications 
 ===============*/
 
-/* Fonction générique qui est appelée après avoir vérifier les données saisies */
+/* Fonction qui est appelée après avoir vérifier les données saisies */
 function update(target, props, id) {
     var data = target.textContent;
     target.style.border = "none";

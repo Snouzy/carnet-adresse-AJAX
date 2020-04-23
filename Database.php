@@ -4,7 +4,7 @@ define("DSN", "mysql:host=localhost;dbname=nettyitsyydev");
 define("USERNAME", "root");
 define("PASSWORD", "");
 
-$options = array(PDO::ATTR_PERSISTENT => true);
+$options = array(PDO::ATTR_PERSISTENT => true); //mise en cache
 
 try {
     $conn = new PDO(DSN, USERNAME, PASSWORD, $options);
