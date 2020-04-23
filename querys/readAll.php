@@ -3,8 +3,9 @@
 include_once '../Database.php';
 
 try{
-    $readQuery = "SELECT * FROM ca2";
+    $readQuery = "SELECT * FROM ca2 ORDER BY name";
     $statement = $conn->query($readQuery);
+    
     while($contact = $statement->fetch(PDO::FETCH_OBJ)) {
         setlocale(LC_TIME, 'fr_FR.utf8','fra');
         $create_date = strftime("%a %d %b %Y", strtotime($contact->dateCreation));

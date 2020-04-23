@@ -5,11 +5,14 @@
 * {
     font-family: Poppins, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+ul, ol {
+    margin: 0;
+}
 .white{
     background-color: white;
 }
 .row {
-    display: flex !important;
+    display: flex;
     justify-content: center !important;
     align-items: center !important;
     
@@ -173,7 +176,7 @@ Titles & descrptions
 }
 h1 { color: #111; font-family: 'Poppins', sans-serif; font-size: 64px; font-weight: 700; line-height: 64px; margin: 0 0 0; padding: 20px 30px; text-align: center; text-transform: uppercase; }
 
-p { color: #111; font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 28px; margin: 0 0 48px; }
+.resume { color: #111; font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 28px; margin: 0 0 48px; text-align: center;}
 
 /* 
 ===============
@@ -185,7 +188,6 @@ Date & Name (Lined)
 .text-line:nth-child(3) {margin-bottom: 3vh;}
 .line { border-top: 1px solid #111; display: block; margin-top: 60px; padding-top: 50px; position: relative; }
 
-.resume { text-align: center; }
 
 
 /* 
@@ -202,19 +204,19 @@ Date & Name (Lined)
     font-family: 'Poppins', sans-serif;
     padding: 15px;
 }
-.s128 form {
+.s128 .container-search {
     width: 100%;
     max-width: 570px;
     margin: 0;
 }
-.s128 form .inner-form .row .input-field {
+.s128 .container-search .inner-form .row .results-field {
     position: relative;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: center;
         justify-content: center;
   }
-  .s128 form .inner-form .row .input-field input {
+  .s128 .container-search .inner-form .row .results-field input {
     height: 60px;
     width: 60px;
     border: 0;
@@ -224,18 +226,18 @@ Date & Name (Lined)
     cursor: pointer;
 }
 
-.s128 form .inner-form .row .input-field input.placeholder {
+.s128 .container-search .inner-form .row .results-field input.placeholder {
     color: #ccc;
     font-size: 18px;
     font-weight: 300;
     opacity: 1;
   }
 
-.s128 form .inner-form .row .input-field input:hover, .s128 form .inner-form .row .input-field input:focus {
+.s128 .container-search .inner-form .row .results-field input:hover, .s128 .container-search .inner-form .row .results-field input:focus {
     box-shadow: none;
     outline: 0;
 }
-.s128 form .inner-form .row .input-field.second input {
+.s128 .container-search .inner-form .row .results-field.search input {
     padding: 10px 60px 10px 0;
     border-radius: 3px;
     width: 60px;
@@ -245,12 +247,45 @@ Date & Name (Lined)
     background-repeat: no-repeat;
     background-color: #fff;
     background-size: 34px 34px;
-  }
-  .s128 form .inner-form .row .input-field.second input.placeholder {
+}
+.s128 .container-search .inner-form .row .results-field.search input.placeholder {
     color: #666;
     transition: opacity .1s;
-  }
-  .s128 form .inner-form .row .input-field.second input:focus {
+}
+.s128 .container-search .inner-form .row .results-field.search input:focus {
     width: 100%;
     padding-left: 15px;
-  }
+}
+.row-result {
+    display: none;
+    margin: 0;
+    width: 100%;
+}
+.results {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    width: 100%;
+}
+.result {
+    position: relative;
+    display: block;
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 10px 60px 10px 0;
+    border-radius: 3px;
+    width: inherit;
+    transition: width .3s;
+}
+
+.result-contact {
+    font-size: 2rem;
+}
+
+.result-contact.result-contact-find {
+    cursor: pointer;    
+    transition: all .5s ease;
+}
+.result-contact.result-contact-find:hover {
+    letter-spacing: .3rem;
+    color: #08A1CA;
+}

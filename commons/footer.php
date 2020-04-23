@@ -11,6 +11,7 @@
 <script src="public/js/ripples.js"></script>
 
 <!-- Custom Javascript -->
+<!-- <script type="module" src="public/js/app.js"></script> -->
 <script src="public/js/app.js"></script>
 
 <!-- Initialisation du material design -->
