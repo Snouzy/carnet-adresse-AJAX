@@ -12,28 +12,28 @@ try {
         $output = "
         <tr>
             <td title='Cliquez pour modifier'>
-                <div class='editable' onclick=\"makeElementEditable(this)\" 
-                onblur=\"updateNomOuPrenom(this, 'name', '{$contact->id}')\"> $contact->name </div>
+                <input type='text' class='editable' onclick=\"makeElementEditable(this)\" 
+                onblur=\"updateValidator(this, 'name', '{$contact->id}')\" value='$contact->name'/>
             </td>
             
             <td title='Cliquez pour modifier'> 
-                <div class='editable' onclick=\"makeElementEditable(this)\"
-                onblur=\"updateNomOuPrenom(this, 'prenom', '{$contact->id}')\"> $contact->prenom </div> 
+                <input type='text' class='editable' onclick=\"makeElementEditable(this)\" 
+                onblur=\"updateValidator(this, 'prenom', '{$contact->id}')\" value='$contact->prenom'/>
             </td>
             
             <td title='Cliquez pour modifier'> 
-                <div class='editable' onclick=\"makeElementEditable(this)\" 
-                onblur=\"updateMailValidator(this, 'email', '{$contact->id}')\"> $contact->email </div> 
+                <input type='text' class='editable' onclick=\"makeElementEditable(this)\" 
+                onblur=\"updateValidator(this, 'email', '{$contact->id}')\" value='$contact->email'/>
             </td>
 
             <td title='Cliquez pour modifier'> 
-                <div class='editable' onclick=\"makeElementEditable(this)\" 
-                onblur=\"updateTelValidator(this, 'telephone', '{$contact->id}')\"> $contact->telephone </div> 
+                <input type='text' class='editable' onclick=\"makeElementEditable(this)\" 
+                onblur=\"updateValidator(this, 'telephone', '{$contact->id}')\" value='$contact->telephone'/>
             </td>
 
             <td title='Cliquez pour modifier'> 
-                <div class='editable' onclick=\"makeElementEditable(this)\" 
-                onblur=\"updateVille(this, 'ville', '{$contact->id}')\"> $contact->ville </div> 
+                <input type='text' class='editable' onclick=\"makeElementEditable(this)\" 
+                onblur=\"updateValidator(this, 'ville', '{$contact->id}')\" value='$contact->ville'/>
             </td>
             
             <td> $create_date </td>
@@ -46,10 +46,6 @@ try {
         </tr>";
         echo $output;
     }
-//<td title='Cliquez pour modifier'>
-//<div class='editable' onclick=\"makeElementEditable(this)\" 
-//onblur=\"updateMailValidator(this, 'email', '{$contact['id']}')\">" . $contact['email'] . "</div>
-//</td>
 } catch (PDOException $err){
     echo "Une erreur est survenue " .$err->getMessage();
 }

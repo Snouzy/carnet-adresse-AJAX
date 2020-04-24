@@ -23,7 +23,7 @@ if(isset($_POST['word']) && !empty($_POST['word'])) {
                 "<li class='result-contact result-contact-find' onclick=\"displayInfo({$contacts[$i]["id"]})\">"  
                     . $contacts[$i]['name'] . " " . $contacts[$i]['prenom'] . 
                 "</li>";
-                //Pour que <hr/> ne soit pas au dernier élément
+                //Pour que le <hr/> ne soit pas appliqué au dernier élément
                 echo $i !== count($contacts) - 1 ? "<hr />" : "";
             }
         } else {

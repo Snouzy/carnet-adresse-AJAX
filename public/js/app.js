@@ -2,18 +2,16 @@
 ===============
 Regexps 
 ===============*/
-const villesPossibles = [];
-$('option').each((index, el) => {
-    villesPossibles.push(el.value)
-});
-const regexps = {
+
+//Minuscule, mieux pour comparer par la suite
+var villesPossibles = ["paris", "marseille", "lyon"];
+var regexps = {
     'name': new RegExp("^[a-zA-Zéèàêëöîïâûü]+(([' -][a-zA-Zéèàêëöîïâûü ])?[a-zA-Zéèàêëöîïâûü]*)*$"),
     'prenom': new RegExp("^[a-zA-Zéèàêëöîïâûü]+(([' -][a-zA-Zéèàêëöîïâûü ])?[a-zA-Zéèàêëöîïâûü]*)*$"),
     'email': new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"),
     'telephone': new RegExp("^(([+]{1}[0-9]{2}|0)[0-9]{9})$"),
     'ville' : villesPossibles
 }
-
 $(document).ready(function () {
     //Chargement de la liste des contacts (bloc gauche) et de tous les contacts (allContacts.php)
     $('#all-contact-list').load('querys/readAll.php');
