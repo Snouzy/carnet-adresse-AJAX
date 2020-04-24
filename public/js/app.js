@@ -2,14 +2,17 @@
 ===============
 Regexps 
 ===============*/
-var emailValidator = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-var nomEtPrenomValidator = /^[a-zA-Zéèàêëöîïâûü]+(([' -][a-zA-Zéèàêëöîïâûü ])?[a-zA-Zéèàêëöîïâûü]*)*$/;
-var telValidator = /^(([+]{1}[0-9]{2}|0)[0-9]{9})$/;
-// Prends toutes les possibilités au démarrage des villes possibles, afin de voir si le texte est contenu dans l'un de ces indexs du tableau (pour eviter que l'utilisateur puisse changer la "value")
-const possibilites = [];
+const villesPossibles = [];
 $('option').each((index, el) => {
-    possibilites.push(el.value)
+    villesPossibles.push(el.value)
 });
+const regexps = {
+    'name': new RegExp("^[a-zA-Zéèàêëöîïâûü]+(([' -][a-zA-Zéèàêëöîïâûü ])?[a-zA-Zéèàêëöîïâûü]*)*$"),
+    'prenom': new RegExp("^[a-zA-Zéèàêëöîïâûü]+(([' -][a-zA-Zéèàêëöîïâûü ])?[a-zA-Zéèàêëöîïâûü]*)*$"),
+    'email': new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"),
+    'telephone': new RegExp("^(([+]{1}[0-9]{2}|0)[0-9]{9})$"),
+    'ville' : villesPossibles
+}
 
 $(document).ready(function () {
     //Chargement de la liste des contacts (bloc gauche) et de tous les contacts (allContacts.php)
@@ -73,99 +76,64 @@ $(document).ready(function () {
             });
         }
     });
-    
 });
 
 // Permet de faire les vérifications avant de "submit" le formulaire
 function checkForm() {
-    if(!nomEtPrenomValidator.test($("#name").val()) || !nomEtPrenomValidator.test($("#prenom").val())) {
-        displayAlert(3000, 300, "Les noms et prénoms ne peuvent être composés que de caractères valides !", true);
-        return false
-    }
-    if(!emailValidator.test($("#email").val())) {
-        displayAlert(3000, 300, "L'email n'est pas valide", true);
-        return false
-    }
+    const tousLesChamps = ["name", "prenom", "email", "telephone", "ville"];
 
-    if(!telValidator.test($("#telephone").val())) {
-        displayAlert(3000, 300, "Le numéro de téléphone n'est pas valide", true);
-        return false
-    }
-    
-    if(!possibilites.includes($(exampleFormControlSelect1).val())){
-        displayAlert(3000, 300, "La ville n'est pas valide", true);
-        return false
-    }
-    // validation success
-    return true;
-}
-
-/* Rend un élément éditable et l'aspect qui va avec */
-function makeElementEditable(div) {
-    $(div).css({
-        "border": "1px solid lavender",
-        "padding" : "5px",
-        "background": "white"
+    //On test chaque champ avec sa regexp correspondante dans l'objet regexps
+    tousLesChamps.forEach(el => {
+        if(el == "ville") { //particulier car c'est un tableau
+            if(!regexps[el].includes($(`#${el}`).val())){
+                displayAlert(3000, 300, "La ville n'est pas valide", true);
+                return false
+            }
+        } else {
+            if(!regexps[el].test($(`#${el}`).val())) {
+                displayAlert(3000, 300, `Le champ ${el} est incorrect`, true);
+                return false;
+            }
+        }
     })
-    .attr("contentEditable", "true");
+    return true
 }
 
 /* 
 ===============
 Vérifications effectuées lors de la modification d'un conctact 
 ===============*/
-function updateVille(target, telephone, id) {
-    console.log(possibilites);
-    if(!possibilites.includes($(target).html().toLowerCase())){
-        displayAlert(1000, 300, "La ville n'est pas valide", true);
-        return false
+function updateValidator(target, prop, id) {
+    var regexp = regexps[prop];
+    var value = $(target).val();
+    if(prop == "ville") {
+        if(!regexp.includes(value.toLowerCase())){
+            displayAlert(3000, 300, "La ville n'est pas valide", true);
+            return false
+        }
+    } else {
+        if(!regexp.test(value)) {
+            displayAlert(3000, 300, `Le champ ${prop} n'est pas valide`, true);
+            return false
+        }
     }
-    update(target, telephone, id);
+    update(target, prop, id);
 }
-
-function updateNomOuPrenom(target, telephone, id) {
-    if(!nomEtPrenomValidator.test($(target).html())) {
-        displayAlert(1000, 300, "Les noms et prénoms ne peuvent être composés que de caractères valides !", true);
-        return false
-    }
-    update(target, telephone, id);
-}
-function updateTelValidator(target, telephone, id) {
-    console.log($(target).html());
-    if(!telValidator.test($(target).html())) {
-        displayAlert(1000, 300, "Le numéro de téléphone n'est pas valide", true);
-        return false
-    }
-    update(target, telephone, id);
-}
-
-function updateMailValidator(target, email, id) {
-    if(!emailValidator.test($(target).html())) {
-        console.log(!emailValidator.test($(target).html()));
-        displayAlert(1000, 300, "L'email n'est pas valide", true);
-        return false
-    }
-    update(target, email, id);
-}
-/* 
+/*
 ===============
 Fin des vérifications 
 ===============*/
 
-/* Fonction générique qui est appelée après avoir vérifier les données saisies */
-function update(target, props, id) {
-    var data = target.textContent;
-    target.style.border = "none";
-    target.style.padding = "0px";
-    target.style.background = "#ececec";
+/* Fonction qui est appelée après avoir vérifier les données saisies */
+function update(target, prop, id) {
+    var data = $(target).val();
     target.contentEditable = false;
-    
     $.ajax({
         url: 'querys/update.php',
         method: 'POST',
-        data: {[props]: data, id: id},
+        data: {[prop]: data, id: id},
         success: function (data) {
-            displayAlert(1500, 300, data);
+            displayAlert(3000, 300, data);
         }
     });
     $('#contact-list').load('querys/readNames.php');
@@ -207,7 +175,12 @@ function displayInfo(id) {
 function displayAlert(delay, slideUp, html, isError = false) {
     if(!isError) {
         $('#ajax_msg').css("display", "block").delay(delay).slideUp(slideUp).html(html);
-    } else {
+    } else { //Si c'est une erreur on change la couleur
         $('#ajax_msgerror').css("display", "block").delay(delay).slideUp(slideUp).html(html);
     }
+}
+
+/* Rend un élément éditable */
+function makeElementEditable(div) {
+    $(div).attr("contentEditable", "true");
 }
