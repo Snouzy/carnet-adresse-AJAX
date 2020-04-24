@@ -72,7 +72,7 @@
                     <div class="form-group">
                         <label for="ville" class="col-md-2 control-label">Ville</label>
                         <div class="col-md-10 ">
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select class="form-control" id="ville">
                             <option value="paris">Paris</option>
                             <option value="lyon">Lyon</option>
                             <option value="marseille">Marseille</option>
@@ -88,7 +88,7 @@
                 </form>
             </section>
             <!--== Contacts ==-->
-            <section class="col col-xs-12 col-sm-6 main">
+            <section class="col col-xs-12 col-sm-6 main" id="contact-section">
             <!-- <h3 class="text-primary">Contacts</h3> -->
                 <hr>
                 
@@ -126,10 +126,11 @@
                 </div>
             </section>
             <!--== end Contacts ==-->
-            <section class="col col-xs-12 col-sm-6 main">
+
+            <section class="col col-xs-12 col-sm-6 main white">
                 <h3>Coordonnées <i class="fa fa-info-circle" style="color:#08A1CA" aria-hidden="true"></i></h3><hr>
-                <table class="table table-striped table-bordered table-responsive">
-                    <thead>
+                <!-- <table class="table table-striped table-bordered table-responsive"> -->
+                    <!-- <thead>
                     <tr>
                         <th>Nom</th>
                         <th>Prénom</th>
@@ -139,10 +140,10 @@
                         <th>Crée le</th>
                         <th>Effacer</th>
                     </tr>
-                    </thead>
+                    </thead> -->
 
-                    <tbody id="contact-preview"> </tbody>
-                </table>
+                    <div id="contact-preview"> </div>
+                <!-- </table> -->
             </section>
 
         </div>

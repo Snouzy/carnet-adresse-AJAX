@@ -10,7 +10,7 @@ if(isset($_POST['id'])) {
             $updateQuery = "UPDATE ca2 SET name = :name WHERE id = :id";
             $statement = $conn->prepare($updateQuery);
             $statement->execute(array(":name" => $name, ":id" => $id));
-            displayAlert($statement, "Le nom du contact a été modifié");
+            displayAlert($statement, "Le nom du contact a été modifié", "nom");
     
         } catch (PDOException $ex){
             displayError($err);
@@ -23,7 +23,7 @@ if(isset($_POST['id'])) {
             $updateQuery = "UPDATE ca2 SET prenom = :prenom WHERE id = :id";
             $statement = $conn->prepare($updateQuery);
             $statement->execute(array(":prenom" => $prenom, ":id" => $id));
-            displayAlert($statement, "Le prénom du contact a été modifié");
+            displayAlert($statement, "Le prénom du contact a été modifié", "prénom");
     
         } catch (PDOException $err) {
             displayError($err);
@@ -36,7 +36,7 @@ if(isset($_POST['id'])) {
             $updateQuery = "UPDATE ca2 SET email = :email WHERE id = :id";
             $statement = $conn->prepare($updateQuery);
             $statement->execute(array(":email" => $email, ":id" => $id));
-            displayAlert($statement, "Email modifié avec succès");
+            displayAlert($statement, "Email modifié avec succès", "email");
         } catch (PDOException $err){
             displayError($err);
         }
@@ -48,7 +48,7 @@ if(isset($_POST['id'])) {
             $updateQuery = "UPDATE ca2 SET telephone = :telephone WHERE id = :id";
             $statement = $conn->prepare($updateQuery);
             $statement->execute(array(":telephone" => $telephone, ":id" => $id));
-            displayAlert($statement, "Le numéro de téléphone a été modifié avec succès");
+            displayAlert($statement, "Le numéro de téléphone a été modifié avec succès", "téléphone");
         } catch (PDOException $err) {
             displayError($err);
         }
@@ -60,7 +60,7 @@ if(isset($_POST['id'])) {
             $updateQuery = "UPDATE ca2 SET ville = :ville WHERE id = :id";
             $statement = $conn->prepare($updateQuery);
             $statement->execute(array(":ville" => $ville, ":id" => $id));
-            displayAlert($statement, "La ville a été mise à jour");
+            displayAlert($statement, "La ville a été mise à jour", "ville");
         } catch (PDOException $err) {
             displayError($err);
         }
@@ -70,11 +70,11 @@ if(isset($_POST['id'])) {
 }
 
 //Fonctions utiles
-function displayAlert($statement, $text) {
+function displayAlert($statement, $text, $errorIndication) {
     if($statement->rowCount() === 1) {
         echo $text;
     } else {
-        echo "Aucun changement effectué";
+        echo "Aucun changement effectué pour le champ " . $errorIndication;
     }
 }
 
