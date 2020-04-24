@@ -53,7 +53,7 @@ try {
             </div>
         </div>
         <div class='form-group'>
-            <label for='edit-telephone' class='col-md-2 control-label'>Telephone</label>
+            <label for='edit-telephone' class='col-md-2 control-label'>Tel.</label>
             <div class='col-md-10 editable'>
                 <input
                 onclick=\"makeElementEditable(this)\" 
@@ -78,7 +78,10 @@ try {
                 value=". $contact['ville'] .">
             </div>
         </div>
-        <button class='btn btn-danger pull-right' id='closeForm'>
+        <button
+        class='btn btn-danger pull-right'
+        id='closeForm'
+        onclick=\"deleteContact('{$contact['id']}')\">
             Effacer le contact <i class='fa fa-close'></i>
         </button>
     ";

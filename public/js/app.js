@@ -28,7 +28,7 @@ $(document).ready(function () {
     // Au click sur "Ajouter"
     $("#add").click(function(e){
         e.preventDefault();
-        $("#createForm").fadeIn();
+        $("#createForm").fadeIn(1000);
     })
     // A la perte du focus dans la recherche
     $('#search').blur(function() {

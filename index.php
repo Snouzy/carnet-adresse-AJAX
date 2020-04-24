@@ -20,7 +20,7 @@
         </div>
     </div class="container-intro">
     <!--== end Introduction area ==-->
-    <div class="container-fluid">
+    <div class="container">
         <div class="s128">
             <div class="container-search">
                 <div class="inner-form">
@@ -42,7 +42,7 @@
 
         <div class="row row-contact">
             <section class="col col-xs-12 col-sm-6 col-md-8 col-lg-6 white" id="createForm">
-                <h3 class="text-primary">Créer un contact</h3><hr>
+                <h3>Créer un contact</h3><hr>
                 <form id="create-contact" action="" method="post">
                     <div class="form-group">
                         <label for="name" class="col-md-2 control-label">Nom</label>
@@ -79,31 +79,32 @@
                         </select>
                         </div>
                     </div>
-                    <button type="submit" name="createBtn" class="btn btn-success pull-right">
-                        Créer un contact <i class="fa fa-plus"></i>
-                    </button>
-                    <button class="btn btn-danger pull-right" id="closeForm">
-                    Fermer le formulaire <i class="fa fa-close"></i>
-                    </button>
+                    <div class="row">
+                        <button class="btn btn-danger pull-right" id="closeForm">
+                        Fermer le formulaire <i class="fa fa-close"></i>
+                        </button>
+                        <button type="submit" name="createBtn" class="btn btn-success pull-right">
+                            Créer un contact <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
                 </form>
             </section>
             <!--== Contacts ==-->
-            <section class="col col-xs-12 col-sm-6 main" id="contact-section">
+            <section class="col col-xs-12 col-sm-6 main white" id="contact-section">
             <!-- <h3 class="text-primary">Contacts</h3> -->
-                <hr>
-                
                 <div class="actions-bar">
                     <a class="customBtn customBtn-1" href="allContacts.php">
                         <svg>
                             <rect x="0" y="0" fill="none" width="100%" height="100%" />
                         </svg>
-                        <i class="fa fa-eye-slash"></i>&nbsp; Tous les contacts
+                        <i class="fa fa-eye-slash"></i>&nbsp; Vue tableur
                     </a>
                     <a class="customBtn customBtn-1" id="add">
                         <svg>
                             <rect x="0" y="0" fill="none" width="100%" height="100%" />
                         </svg>
-                        Ajouter <i class="fa fa-plus-circle"></i>
+                        Ajouter 
+                        <i class="fa fa-plus-circle"></i>
                     </a>
                 </div>
                 <div style="height: 40vh; overflow: auto;">
@@ -127,22 +128,9 @@
             </section>
             <!--== end Contacts ==-->
 
-            <section class="col col-xs-12 col-sm-6 main white">
-                <h3>Coordonnées <i class="fa fa-info-circle" style="color:#08A1CA" aria-hidden="true"></i></h3><hr>
-                <!-- <table class="table table-striped table-bordered table-responsive"> -->
-                    <!-- <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Email</th>
-                        <th>Téléphone</th>
-                        <th>Ville</th>
-                        <th>Crée le</th>
-                        <th>Effacer</th>
-                    </tr>
-                    </thead> -->
-
-                    <div id="contact-preview"> </div>
+            <section class="col col-xs-12 col-sm-6 main white" id="coordonnees-contact">
+                <h3 id="coordonnees-contact--title">Coordonnées <i class="fa fa-info-circle" style="color:#08A1CA" aria-hidden="true"></i></h3>
+                <div id="contact-preview"> </div>
                 <!-- </table> -->
             </section>
 

@@ -53,7 +53,7 @@
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="allContacts.php">&nbsp; Voir tous les contacts <i class="fa fa-eye-slash"></i> </a></li>
+                <li><a href="allContacts.php">&nbsp; Vue tableur <i class="fa fa-eye-slash"></i> </a></li>
             </ul>
         </div>
     </div>
