@@ -129,7 +129,16 @@
             <!--== end Contacts ==-->
 
             <section class="col col-xs-12 col-sm-6 main white" id="coordonnees-contact">
-                <h3 id="coordonnees-contact--title">Coordonnées <i class="fa fa-info-circle" style="color:#08A1CA" aria-hidden="true"></i></h3>
+                <div class="coordonnees-contact--row">
+                    <div>
+                        <h3 id="coordonnees-contact--title">Coordonnées 
+                            <i class="fa fa-info-circle" style="color:#08A1CA" aria-hidden="true"></i>
+                        </h3>
+                    </div>
+                    <div>
+                        <i class="fa fa-close" id="close-coordonnees"></i>
+                    </div>
+                </div>
                 <div id="contact-preview"> </div>
                 <!-- </table> -->
             </section>

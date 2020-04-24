@@ -25,10 +25,14 @@ $(document).ready(function () {
         $("#createForm").fadeOut();
     });
 
+    //Au click sur "fermer les infos"
+    $('#close-coordonnees').click(function(e) {
+        $('#coordonnees-contact').fadeOut();
+    })
     // Au click sur "Ajouter"
     $("#add").click(function(e){
         e.preventDefault();
-        $("#createForm").fadeIn(1000);
+        $("#createForm").fadeIn();
     })
     // A la perte du focus dans la recherche
     $('#search').blur(function() {
@@ -160,6 +164,7 @@ function deleteContact(id) {
 
 /* Permet de preview un contact */
 function displayInfo(id) {
+    $('#coordonnees-contact').fadeIn();
     $.ajax({
         url: 'querys/readOne.php',
         method: 'POST',

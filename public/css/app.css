@@ -22,6 +22,11 @@ svg {
     align-items: center !important;
     
 }
+.coordonnees-contact--row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center;
+}
 .row-search {
     justify-content: start !important;
 }
@@ -35,7 +40,9 @@ svg {
 .navbar {
     background-color: #18AEE0 !important;
 }
-
+.fa-info-circle {
+    color: #6fc8e0 !important;
+}
 #ajax_msg, #ajax_msgerror {
     position: fixed;
     right: 0;
@@ -60,12 +67,19 @@ svg {
 ===============
  Tables 
 ===============*/
+#close-coordonnees {
+    font-size: 2.3rem;
+    color:red;
+    cursor: pointer;
+}
 .table-striped{
     border: none !important;
 }
 #createForm {
     display: none;
-    transition: all 3s ease;
+}
+#coordonnees-contact {
+    display: none;
 }
 
 #contact-section {
