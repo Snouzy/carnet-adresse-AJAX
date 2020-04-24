@@ -49,7 +49,6 @@ svg {
     width: 300px;
     z-index: 1;
     text-align: center;
-    border-radius: 7px;
     display: none;
 }
 #ajax_msg {
@@ -178,10 +177,13 @@ a[href="allContacts.php"] {
 .editable {
     cursor: pointer;
 }
-
+.editable-tableur {
+    width: 100%;
+}
 .editable:hover {
     background-color: #def4fb;
     background-size: 100%;
+    border-radius: 3px;
 }
 
 

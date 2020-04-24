@@ -12,27 +12,27 @@ try {
         $output = "
         <tr>
             <td title='Cliquez pour modifier'>
-                <input type='text' class='editable' onclick=\"makeElementEditable(this)\" 
+                <input type='text' class='editable editable-tableur' onclick=\"makeElementEditable(this)\" 
                 onblur=\"updateValidator(this, 'name', '{$contact->id}')\" value='$contact->name'/>
             </td>
             
             <td title='Cliquez pour modifier'> 
-                <input type='text' class='editable' onclick=\"makeElementEditable(this)\" 
+                <input type='text' class='editable editable-tableur' onclick=\"makeElementEditable(this)\" 
                 onblur=\"updateValidator(this, 'prenom', '{$contact->id}')\" value='$contact->prenom'/>
             </td>
             
             <td title='Cliquez pour modifier'> 
-                <input type='text' class='editable' onclick=\"makeElementEditable(this)\" 
+                <input type='text' class='editable editable-tableur' onclick=\"makeElementEditable(this)\" 
                 onblur=\"updateValidator(this, 'email', '{$contact->id}')\" value='$contact->email'/>
             </td>
 
             <td title='Cliquez pour modifier'> 
-                <input type='text' class='editable' onclick=\"makeElementEditable(this)\" 
+                <input type='text' class='editable editable-tableur' onclick=\"makeElementEditable(this)\" 
                 onblur=\"updateValidator(this, 'telephone', '{$contact->id}')\" value='$contact->telephone'/>
             </td>
 
             <td title='Cliquez pour modifier'> 
-                <input type='text' class='editable' onclick=\"makeElementEditable(this)\" 
+                <input type='text' class='editable editable-tableur' onclick=\"makeElementEditable(this)\" 
                 onblur=\"updateValidator(this, 'ville', '{$contact->id}')\" value='$contact->ville'/>
             </td>
             
