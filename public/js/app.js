@@ -154,7 +154,7 @@ function deleteContact(id) {
                 //Màj des listes
                 $('#all-contact-list').load('querys/readAll.php');
                 $('#contact-list').load('querys/readNames.php');
-                $('#contact-preview').html('');
+                $('#coordonnees-contact').fadeOut();
             }
         });
     }
@@ -169,11 +169,36 @@ function displayInfo(id) {
         method: 'POST',
         data: { id:id },
         success: function (data) {
+            data = JSON.parse(data);
+            var keys = Object.keys(data);
+            var numberOfInputs = Object.keys(data).length - 1; // / -1 car"id" est renvoyé mais n'est pas un input
+            const { id, dateCreation } = data;
+
+            //Génère les données dans les inputs
+            for(let i = 0; i < numberOfInputs; i++) {
+                $(`#edit-${keys[i]}`).val(data[keys[i]]).attr("onblur", `updateValidator(this, '${keys[i]}', ${id})`)
+            }
+            $('#deleteContact').attr("onclick", `deleteContact(${id})`)
+            $('#dateCreation').html(`Crée le ${dateCreation}`)
+
             displayAlert(1500, 300, "Contact récupéré");
-            $("#contact-preview").html(data);
+            // $("#contact-preview").html(data);
         }
     });
 }
+// /* Permet de preview un contact */
+// function displayInfo(id) {
+//     $('#coordonnees-contact').fadeIn();
+//     $.ajax({
+//         url: 'querys/readOne.php',
+//         method: 'POST',
+//         data: { id:id },
+//         success: function (data) {
+//             displayAlert(1500, 300, "Contact récupéré");
+//             $("#contact-preview").html(data);
+//         }
+//     });
+// }
 
 /* Toasts notifications en bas à droite */
 function displayAlert(delay, slideUp, html, isError = false) {

@@ -2,7 +2,7 @@
 
 <?php include_once 'commons/header.php';?>
 <body>
-    <!--== start Introduction area ==-->
+    <!--== start Introduction  ==-->
     <div class="container-intro">
         <div class="introduction">
             <div class="text-line"><span>19 AVR. 2020</span></div>
@@ -19,8 +19,9 @@
             </p>
         </div>
     </div class="container-intro">
-    <!--== end Introduction area ==-->
+    <!--== end Introduction  ==-->
     <div class="container">
+        <!--== start searchBar  ==-->
         <div class="s128">
             <div class="container-search">
                 <div class="inner-form">
@@ -39,8 +40,9 @@
                 </div>
             </div>
         </div>
-
+        <!--== end searchBar  ==-->
         <div class="row row-contact">
+            <!--== start Forumlaire d'ajout ==-->
             <section class="col col-xs-12 col-sm-6 col-md-8 col-lg-6 white" id="createForm">
                 <h3>Créer un contact</h3><hr>
                 <form id="create-contact" action="" method="post">
@@ -89,9 +91,10 @@
                     </div>
                 </form>
             </section>
-            <!--== Contacts ==-->
+            <!--== end Forumlaire d'ajout ==-->
+
+            <!--== start Contacts list ==-->
             <section class="col col-xs-12 col-sm-6 main white" id="contact-section">
-            <!-- <h3 class="text-primary">Contacts</h3> -->
                 <div class="actions-bar">
                     <a class="customBtn customBtn-1" href="allContacts.php">
                         <svg>
@@ -126,9 +129,12 @@
                     </table>
                 </div>
             </section>
-            <!--== end Contacts ==-->
+            <!--== end Contacts list ==-->
 
+            <!--== start Coordoonnées du contact ==-->
             <section class="col col-xs-12 col-sm-6 main white" id="coordonnees-contact">
+                
+                <!--== start header des coordonnées ==-->
                 <div class="coordonnees-contact--row">
                     <div>
                         <h3 id="coordonnees-contact--title">Coordonnées 
@@ -139,11 +145,77 @@
                         <i class="fa fa-close" id="close-coordonnees"></i>
                     </div>
                 </div>
-                <div id="contact-preview"> </div>
-                <!-- </table> -->
-            </section>
+                <!--== end header des coordonnées ==-->
 
+                <!--== start body des coordonnées ==-->
+                <div id="contact-preview">
+                    <div class='form-group'>
+                        <label for='edit-name' class='col-md-2 control-label'>Nom</label>
+                        <div class='col-md-10 editable-name'>
+                        <input
+                            id='edit-name'
+                            onclick='makeElementEditable(this)'
+                            class='form-control'
+                            type='text'
+                            required>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label for='edit-prenom' class='col-md-2 control-label'>Prenom</label>
+                        <div class='col-md-10 editable-prenom'>
+                        <input
+                            id='edit-prenom'
+                            onclick='makeElementEditable(this)'
+                            class='form-control'
+                            type='text'
+                            required>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label for='edit-email' class='col-md-2 control-label'>Email</label>
+                        <div class='col-md-10 editable-email'>
+                        <input
+                            id='edit-email'
+                            onclick='makeElementEditable(this)'
+                            class='form-control'
+                            type='text'
+                            required>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label for='edit-telephone' class='col-md-2 control-label'>Telephone</label>
+                        <div class='col-md-10 editable-telephone'>
+                        <input
+                            id='edit-telephone'
+                            onclick='makeElementEditable(this)'
+                            class='form-control'
+                            type='text'
+                            required>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <label for='edit-ville' class='col-md-2 control-label'>Ville</label>
+                        <div class='col-md-10 editable-ville'>
+                        <input
+                            id='edit-ville'
+                            onclick='makeElementEditable(this)'
+                            class='form-control'
+                            type='text'
+                            required>
+                        </div>
+                    </div>
+                    <button
+                        class='btn btn-danger pull-right' id='deleteContact'>
+                            Effacer le contact <i class='fa fa-close'></i>
+                    </button>
+                    <button
+                        class='btn btn-danger pull-right' id='dateCreation' disabled>
+                    </button>
+                </div>
+                <!--== end body des coordonnées ==-->
+            </section>
         </div>
+        <!--== end Coordoonnées du contact area ==-->
     </div>
 
     <?php include_once 'commons/footer.php'; ?>

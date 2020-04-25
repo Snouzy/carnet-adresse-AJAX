@@ -21,6 +21,10 @@ svg {
     align-items: center !important;
     
 }
+.form-group {
+    margin: 0 !important;
+    padding-bottom: 0 !important;
+}
 .coordonnees-contact--row {
     display: flex !important;
     justify-content: space-between !important;
@@ -68,6 +72,9 @@ svg {
 #close-coordonnees {
     font-size: 2.3rem;
     color:red;
+    cursor: pointer;
+}
+#dateCreation {
     cursor: pointer;
 }
 .table-striped{
