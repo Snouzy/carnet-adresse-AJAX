@@ -57,6 +57,17 @@ $(document).ready(function () {
         }
     })
 
+    //Au click sur la vue tableur 
+    // $("a[href='allContacts.php']").click(function() {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "readAll.php",
+    //         dataType: "json",
+    //         success: function (data) {
+                
+    //         }
+    //     });
+    // })
     // A l'envoi du formulaire
     $('#create-contact').submit(function (event) {
         event.preventDefault();
@@ -69,6 +80,7 @@ $(document).ready(function () {
                 url: 'querys/create.php',
                 method: 'POST',
                 data: formData,
+                dataType: 'json',
                 success: function (data) {
                     displayAlert(3000, 300, data);
                     $('#all-contact-list').load('querys/readAll.php');
@@ -167,38 +179,23 @@ function displayInfo(id) {
     $.ajax({
         url: 'querys/readOne.php',
         method: 'POST',
-        data: { id:id },
+        data: {id: id},
         success: function (data) {
             data = JSON.parse(data);
             var keys = Object.keys(data);
-            var numberOfInputs = Object.keys(data).length - 1; // / -1 car"id" est renvoyé mais n'est pas un input
-            const { id, dateCreation } = data;
+            var numberOfInputs = Object.keys(data).length; 
 
-            //Génère les données dans les inputs
+            //push les données dans les inputs
             for(let i = 0; i < numberOfInputs; i++) {
                 $(`#edit-${keys[i]}`).val(data[keys[i]]).attr("onblur", `updateValidator(this, '${keys[i]}', ${id})`)
             }
             $('#deleteContact').attr("onclick", `deleteContact(${id})`)
-            $('#dateCreation').html(`Crée le ${dateCreation}`)
+            $('#dateCreation').html(`Crée le ${data.dateCreation}`)
 
             displayAlert(1500, 300, "Contact récupéré");
-            // $("#contact-preview").html(data);
         }
     });
 }
-// /* Permet de preview un contact */
-// function displayInfo(id) {
-//     $('#coordonnees-contact').fadeIn();
-//     $.ajax({
-//         url: 'querys/readOne.php',
-//         method: 'POST',
-//         data: { id:id },
-//         success: function (data) {
-//             displayAlert(1500, 300, "Contact récupéré");
-//             $("#contact-preview").html(data);
-//         }
-//     });
-// }
 
 /* Toasts notifications en bas à droite */
 function displayAlert(delay, slideUp, html, isError = false) {

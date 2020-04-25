@@ -13,7 +13,6 @@ try {
     $create_date = strftime("%a %d %b %Y", strtotime($contact['dateCreation']));
 
     $output = [
-        'id' => $contact['id'],
         'name' => $contact['name'],
         'prenom' => $contact['prenom'],
         'email' => $contact['email'],
