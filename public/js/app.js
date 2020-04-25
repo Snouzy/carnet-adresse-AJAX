@@ -35,6 +35,7 @@ $(document).ready(function () {
     // A la perte du focus dans la recherche
     $('#search').blur(function() {
         $('.row-result').fadeOut();
+        $(this).val(""); //reset le champ
     });
 
     // Quand l'utilisateur recherche
