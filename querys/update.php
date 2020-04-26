@@ -60,7 +60,9 @@ if(isset($_POST['id'])) {
             $updateQuery = "UPDATE ca2 SET ville = :ville WHERE id = :id";
             $statement = $conn->prepare($updateQuery);
             $statement->execute(array(":ville" => $ville, ":id" => $id));
-            displayAlert($statement, "La ville a été mise à jour", "ville");
+            if($statement->rowCount() === 1) {
+                displayAlert($statement, "La ville a été mise à jour", "ville");
+            }
         } catch (PDOException $err) {
             displayError($err);
         }
@@ -73,9 +75,10 @@ if(isset($_POST['id'])) {
 function displayAlert($statement, $text, $errorIndication) {
     if($statement->rowCount() === 1) {
         echo $text;
-    } else {
-        echo "Aucun changement effectué pour le champ " . $errorIndication;
     }
+    // else {
+    //     echo "Aucun changement effectué pour le champ " . $errorIndication;
+    // }
 }
 
 function displayError($err) {
