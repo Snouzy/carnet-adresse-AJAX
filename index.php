@@ -43,7 +43,7 @@
         <!--== end searchBar  ==-->
         <div class="row row-contact">
             <!--== start Forumlaire d'ajout ==-->
-            <section class="col col-xs-12 col-sm-9 col-lg-6 white" id="createForm">
+            <section class="col col-xs-10 col-sm-9 col-lg-6 white" id="createForm">
                 <h3>Créer un contact</h3><hr>
                 <form id="create-contact" action="" method="post">
                     <div class="form-group">
@@ -94,7 +94,7 @@
             <!--== end Forumlaire d'ajout ==-->
 
             <!--== start Contacts list ==-->
-            <section class="col col-xs-12 col-sm-9 col-lg-6 main white" id="contact-section">
+            <section class="col col-xs-10 col-sm-9 col-lg-6 main white" id="contact-section">
                 <div class="actions-bar">
                     <a class="customBtn customBtn-1" href="allContacts.php">
                         <svg>
@@ -132,7 +132,7 @@
             <!--== end Contacts list ==-->
 
             <!--== start Coordoonnées du contact ==-->
-            <section class="col col-xs-12 col-sm-9 col-lg-6 main white" id="coordonnees-contact">
+            <section class="col col-xs-10 col-sm-9 col-lg-6 main white" id="coordonnees-contact">
                 
                 <!--== start header des coordonnées ==-->
                 <div class="coordonnees-contact--row">

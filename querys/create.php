@@ -16,8 +16,16 @@ if(isset($_POST['name']) && isset($_POST['prenom']) && isset($_POST['email']) &&
         $statement = $conn->prepare($createQuery);
         $statement->execute(array(":name" => $name, ":prenom" => $prenom, ":email" => $email, ":telephone" => $telephone, ":ville" => $ville));
 
+        /* ==-- get l'id pour le display sur la section preview-contact --== */
+        $idQuery = "SELECT max(id) FROM ca2";
+        $statement2 = $conn->query($idQuery);
+        $res = $statement2->fetch(PDO::FETCH_ASSOC);
         if($statement){
-            echo "Contact ajouté !";
+            $output = [
+                'message' => "Contact ajouté !",
+                'id' => $res['max(id)']
+            ];
+            echo json_encode($output);
         }
         
     } catch (PDOException $ex) {

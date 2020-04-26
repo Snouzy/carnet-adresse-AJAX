@@ -17,6 +17,7 @@ svg {
 }
 .row-search, .row-result, .row-contact {
     display: flex;
+    flex-direction: row;
     justify-content: center !important;
     align-items: center !important;
 }
@@ -88,6 +89,8 @@ svg {
     border: none !important;
 }
 #createForm {
+    margin: 20px;
+    padding: 20px;
     display: none;
 }
 #coordonnees-contact {
@@ -355,16 +358,12 @@ Scrollbar
 }
 
 
-/* ==-- Ipad --== */
-    @media screen and (max-width: 768px) {
-        .row-search, .row-contact {
-            display: flex;
-        }
-    }
 /* ==-- Iphone --== */
-@media screen and (max-width: 375px) {
+@media only screen and (max-device-width : 768px) {
+    
     .row-search, .row-contact {
-        display: block;
+        flex-direction: column;
+        margin: 0 auto;
     }
 
     a[href="allContacts.php"], .navbar-toggle {
@@ -376,19 +375,28 @@ Scrollbar
     }
 
     #contact-section {
-        margin: 10px 10px 10px 0px;
+        /* margin: 10px 10px 10px 0px; */
         padding: 20px;
     }
-
+    #createForm,  #coordonnees-contact{
+        margin-bottom: 5rem;
+    }
     .table-names {
         height: 23vh;
     }
-
+    
+    .container {
+        margin-bottom: 15rem;
+    }
     .container-intro {
         width: 95%;
     }
-    
+
     .actions-bar {
         justify-content: flex-end;
+    }
+    .customBtn {
+        line-height: 25px;
+        padding: 5px 14px 5px 14px;
     }
 }

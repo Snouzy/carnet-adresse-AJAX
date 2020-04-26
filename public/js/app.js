@@ -38,6 +38,7 @@ $(document).ready(function () {
      */
     $("#add").click(function(e){
         e.preventDefault();
+        $("#coordonnees-contact").fadeOut();
         $("#contact-section").fadeOut("400", function(){
             $("#createForm").fadeIn().delay(800);
         })
@@ -99,13 +100,15 @@ $(document).ready(function () {
                 method: 'POST',
                 data: formData,
                 success: function (data) {
-                    displayAlert(3000, 300, data);
+                    data = JSON.parse(data);
+                    displayAlert(3000, 300, data.message);
                     $('#all-contact-list').load('querys/readAll.php');
                     $('#contact-list').load('querys/readNames.php');
-                    document.getElementById("create-contact").reset();
                     $("#createForm").fadeOut("400", function(){
-                        $("#contact-section").fadeIn().delay(800);
+                        $("#contact-section").fadeIn();
+                        displayInfo(data.id);
                     });
+                    document.getElementById("create-contact").reset();
                 }
             });
         }
