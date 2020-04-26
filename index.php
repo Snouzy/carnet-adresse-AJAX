@@ -94,7 +94,7 @@
             <!--== end Forumlaire d'ajout ==-->
 
             <!--== start Contacts list ==-->
-            <section class="col col-xs-12 col-sm-7 col-lg-6 main white" id="contact-section">
+            <section class="col col-xs-12 col-sm-9 col-lg-6 main white" id="contact-section">
                 <div class="actions-bar">
                     <a class="customBtn customBtn-1" href="allContacts.php">
                         <svg>
