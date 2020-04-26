@@ -23,7 +23,7 @@ $(document).ready(function () {
     $("#closeForm").click(function(e) {
         e.preventDefault();
         $("#createForm").fadeOut("400", function(){
-            $("#contact-section").fadeIn().delay(800);
+            $("#contact-section").fadeIn();
         });
     });
     /**
@@ -138,7 +138,6 @@ function checkForm() {
     return true
 }
 
-
 /**
  * Permet de vérifier le formulaire avant d'effectivement update les infos
  * @param {HTMLElement} target
@@ -207,8 +206,6 @@ function deleteContact(id) {
     return false;
 }
 
-
-
 /**
  * Permet d'avoir une preview du contact sélectionné
  * @param {string} id
@@ -234,7 +231,6 @@ function displayInfo(id) {
         }
     });
 }
-
 
 /**
  * Permet d'afficher une toast notification en fonction de si c'est une erreur ou pas
