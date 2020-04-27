@@ -1,8 +1,8 @@
-/* ==-- Regexps --== */
 
-// minuscules, mieux pour comparer par la suite
-var villesPossibles = ["paris", "marseille", "lyon"];
-var regexps = {
+/* ==-- Global variables --== */
+const lastURIElement = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+const villesPossibles = ["paris", "marseille", "lyon"];
+const regexps = {
     'name': new RegExp("^[a-zA-Zéèàêëöîïâûü]+(([' -][a-zA-Zéèàêëöîïâûü ])?[a-zA-Zéèàêëöîïâûü]*)*$"),
     'prenom': new RegExp("^[a-zA-Zéèàêëöîïâûü]+(([' -][a-zA-Zéèàêëöîïâûü ])?[a-zA-Zéèàêëöîïâûü]*)*$"),
     'email': new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"),
@@ -11,27 +11,21 @@ var regexps = {
 }
 
 $(document).ready(function () {
-    /**
-     * Chargement de la liste des contacts (readNames) et de tous les contacts (allContacts.php)
-     */
-    $('#all-contact-list').load('querys/readAll.php');
-    $('#contact-list').load('querys/readNames.php');
+    // Chargement de la bonne liste des contacts en fonction de la page (économise une requête SELECT * non négligeable);
+    lastURIElement !== "allContacts.php" ? displayNomsAndPrenoms(): displayTableurVue();
 
     /**
      * Au click sur "Fermer le formulaire" 
      */
     $("#closeForm").click(function(e) {
         e.preventDefault();
-        $("#createForm").fadeOut("400", function(){
-            $("#contact-section").fadeIn();
-        });
+        $("#createForm").fadeOut(() => $("#contact-section").fadeIn());
     });
+
     /**
      * Au click sur la croix rouge 
      */
-    $('#close-coordonnees').click(function(e) {
-        $('#coordonnees-contact').fadeOut();
-    })
+    $('#close-coordonnees').click(() => $('#coordonnees-contact').fadeOut())
 
     /**
      * Au click sur "Ajouter" 
@@ -39,9 +33,7 @@ $(document).ready(function () {
     $("#add").click(function(e){
         e.preventDefault();
         $("#coordonnees-contact").fadeOut();
-        $("#contact-section").fadeOut("400", function(){
-            $("#createForm").fadeIn().delay(800);
-        })
+        $("#contact-section").fadeOut(() => $("#createForm").fadeIn())
     });
 
     /**
@@ -56,13 +48,13 @@ $(document).ready(function () {
      * Quand l'utilisateur recherche
      */
     $('#search').keyup(function() {
-        var typedWord = $(this).val();
+        const typedWord = $(this).val();
         if(typedWord !== "") {
             $.ajax({
                 url: 'querys/readSearch.php',
                 method: 'POST',
-                data: {word: typedWord},
-                success: function(data){
+                data: { typedWord },
+                success: data => {
                     if(data !== "")
                     $('.row-result').fadeIn();
                     $('.results').html(data);
@@ -72,43 +64,32 @@ $(document).ready(function () {
             $('.row-result').fadeOut();
         }
     })
-
-    //! TODO
-    //Au click sur la vue tableur 
-    // $("a[href='allContacts.php']").click(function() {
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "readAll.php",
-    //         dataType: "json",
-    //         success: function (data) {
-                
-    //         }
-    //     });
-    // })
     
     /**
      * A l'envoi du formulaire 
      */
     $('#create-contact').submit(function (event) {
         event.preventDefault();
-        var form = $(this);
+        const form = $(this);
+
         //Si les informations sont valides
         if(checkForm()) {
-            var formData = form.serialize();
+            const formData = form.serialize();
             $.ajax({
                 url: 'querys/create.php',
                 method: 'POST',
                 data: formData,
+                dataType: 'json',
                 success: function (data) {
-                    data = JSON.parse(data);
                     displayAlert(3000, 300, data.message);
-                    $('#all-contact-list').load('querys/readAll.php');
-                    $('#contact-list').load('querys/readNames.php');
+                    displayTableurVue();
+                    displayNomsAndPrenoms();
                     $("#createForm").fadeOut("400", function(){
                         $("#contact-section").fadeIn();
                         displayInfo(data.id);
                     });
-                    document.getElementById("create-contact").reset();
+                    //reset the form
+                    $("#create-contact")[0].reset();
                 }
             });
         }
@@ -116,10 +97,105 @@ $(document).ready(function () {
 });
 
 /**
- * Permet de faire les vérifs avant de submit le formulaire 
- * @returns {bool}
+ * Formate et affiche la vue tableur
  */
-function checkForm() {
+async function displayTableurVue() {
+    try {
+        const data = await getAllContacts();
+        let allHtmlData = "";
+        for(index in data) {
+            allHtmlData += `
+            <tr>
+                <td title='Cliquez pour modifier'>
+                    <input type='text' class='editable editable-tableur' onclick='makeElementEditable(this)' 
+                    onblur="updateValidator(this, 'name', ${data[index].id})"
+                    value='${data[index].name}'/>
+                </td>
+                <td title='Cliquez pour modifier'> 
+                    <input type='text' class='editable editable-tableur' onclick='makeElementEditable(this)'
+                    onblur="updateValidator(this, 'prenom', ${data[index].id})"
+                    value='${data[index].prenom}'/>
+                </td>
+                <td title='Cliquez pour modifier'> 
+                    <input type='text' class='editable editable-tableur' onclick='makeElementEditable(this)'
+                    onblur="updateValidator(this, 'email', ${data[index].id})"
+                    value='${data[index].email}'/>
+                </td>
+                <td title='Cliquez pour modifier'> 
+                    <input type='text' class='editable editable-tableur' onclick='makeElementEditable(this)'
+                    onblur="updateValidator(this, 'telephone', ${data[index].id})"
+                    value='${data[index].telephone}'/>
+                </td>
+                <td title='Cliquez pour modifier'> 
+                    <input type='text' class='editable editable-tableur' onclick='makeElementEditable(this)'
+                    onblur="updateValidator(this, 'ville', ${data[index].id})"
+                    value='${data[index].ville}'/>
+                </td>
+                <td>${data[index].dateCreation}</td>
+                <td style=\"width: 5%;\">
+                    <button class='btn-danger' onclick="deleteContact(${data[index].id})">
+                        <i class=\"fa fa-times\"></i>
+                    </button>
+                </td>
+            <tr>
+            `
+        }
+        $('#all-contact-list').html(allHtmlData);
+    } catch (err) {
+        $('#all-contact-list').html("Les contacts n'ont pas pu être récupérés.");
+        console.log("Les contacts n'ont pas pu être récupérés.", err);
+    }
+}
+
+/**
+ * Formate et affiche la vue noms / prénoms
+ */
+async function displayNomsAndPrenoms() {
+    try {
+        const data = await getAllContacts();
+        let allHtmlData = "";
+
+        for(index in data) {
+            allHtmlData += `
+            <tr>
+                <td scope='row' title='Voir le contact'>
+                    <div
+                    class='editable'
+                    onclick=displayInfo(${data[index].id}) >
+                        ${data[index].name} ${data[index].prenom}
+                    </div>
+                </td>
+            </tr>
+            `
+        }
+        $('#contact-list').html(allHtmlData);
+    } catch (err) {
+        $('#contact-list').html("Les contacts n'ont pas pu être récupérés.");
+        console.log("Les contacts n'ont pas pu être récupérés.", err);
+    }
+}
+
+/**
+ * Va chercher tous les contacts depuis readAll qui lui fera la requête
+ * @returns {promise}
+ */
+function getAllContacts() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "POST",
+            url: "querys/readAll.php",
+            dataType: "json",
+            success: data => resolve(data),
+            error: err => reject(err)
+        })
+    });
+}
+
+/**
+ * Permet de faire les vérifs avant de submit le formulaire 
+ * @returns {bool} //true : le formulaire est valide, false : invalide
+ */
+const checkForm = () => {
     const tousLesChamps = ["name", "prenom", "email", "telephone", "ville"];
     //On test chaque champ avec sa regexp correspondante dans l'objet regexps
     for (let el of tousLesChamps) {
@@ -145,9 +221,9 @@ function checkForm() {
  * @param {string} id
  * @returns {bool}
  */
-function updateValidator(target, prop, id) {
-    var regexp = regexps[prop];
-    var value = $(target).val();
+const updateValidator = (target, prop, id) => {
+    const regexp = regexps[prop];
+    const value = $(target).val();
     if(prop == "ville") {
         if(!regexp.includes(value.toLowerCase())){
             displayAlert(3000, 300, "La ville n'est pas valide", true);
@@ -163,24 +239,28 @@ function updateValidator(target, prop, id) {
 }
 
 /**
- * Fonction qui est appelée après avoir vérifier les données saisies par updateValidator
+ * Fonction qui est appelée après avoir vérifié les données saisies
+ * (rôle de updateValidator())
+ * => Met à jour la liste des contacts 
  * @param {HTMLElement} target
  * @param {string} prop
  * @param {string} id
  * @returns {void} 
  */
-function update(target, prop, id) {
-    var data = $(target).val();
+const update = (target, prop, id) => {
+    const data = $(target).val();
     target.contentEditable = false;
     $.ajax({
         url: 'querys/update.php',
         method: 'POST',
-        data: {[prop]: data, id: id},
-        success: function (data) {
-            if(data) displayAlert(3000, 300, data);
+        data: { [prop]: data, id },
+        success: data => {
+            if(data) {
+                displayAlert(3000, 300, data);
+                displayNomsAndPrenoms();
+            }
         }
     });
-    $('#contact-list').load('querys/readNames.php');
 }
 
 /**
@@ -188,17 +268,17 @@ function update(target, prop, id) {
  * @param {string} id
  * @returns {bool}
  */
-function deleteContact(id) {
-    if(confirm("Voulez-vous vraiment supprimer ce contact ?")){
+const deleteContact = id => {
+    if(confirm("Voulez-vous vraiment supprimer ce contact ?")) {
         $.ajax({
             url: 'querys/delete.php',
             method: 'POST',
-            data: {id:id},
-            success: function (data) {
+            data: { id },
+            success:  data => {
                 displayAlert(3000, 300, data);
                 //Màj des listes
-                $('#all-contact-list').load('querys/readAll.php');
-                $('#contact-list').load('querys/readNames.php');
+                displayTableurVue();
+                displayNomsAndPrenoms();
                 $('#coordonnees-contact').fadeOut();
             }
         });
@@ -210,23 +290,33 @@ function deleteContact(id) {
  * Permet d'avoir une preview du contact sélectionné
  * @param {string} id
  */
-function displayInfo(id) {
+const displayInfo = id => {
     $('#coordonnees-contact').fadeIn();
     $.ajax({
         url: 'querys/readOne.php',
         method: 'POST',
         data: {id: id},
-        success: function (data) {
-            data = JSON.parse(data);
-            var keys = Object.keys(data);
-            var numberOfInputs = Object.keys(data).length; 
-            //push les données dans les inputs
+        dataType: 'json',
+        success: data => {
+            const keys = Object.keys(data);
+            const numberOfInputs = Object.keys(data).length; 
+
+            //Reset l'attribut selected de tout le monde car sinon il garde l'ancien en mémoire
+            $('.edit-option').each(function(){$(this).removeAttr('selected')});
+
+            // Push des données du contact récupéré dans les inputs/select
             for(let i = 0; i < numberOfInputs; i++) {
-                $(`#edit-${keys[i]}`).val(data[keys[i]]).attr("onblur", `updateValidator(this, '${keys[i]}', ${id})`)
+                if(keys[i] == 'ville') { //select
+                    $(`.edit-option[value='${data.ville}']`).attr('selected', 'selected')
+                    $("#edit-ville").attr('onchange', `updateValidator(this, '${keys[i]}', ${id})`).val(data.ville);
+                } 
+                else $(`#edit-${keys[i]}`).val(data[keys[i]]).attr("onblur", `updateValidator(this, '${keys[i]}', ${id})`);
             }
+
+            // Footer du contact
             $('#deleteContact').attr("onclick", `deleteContact(${id})`)
             $('#dateCreation').html(`Crée le ${data.dateCreation}`)
-
+            
             displayAlert(1500, 300, "Contact récupéré");
         }
     });
@@ -239,18 +329,15 @@ function displayInfo(id) {
  * @param {string} html
  * @param {bool} isError=false
  */
-function displayAlert(delay, slideUp, html, isError = false) {
-    if(!isError) {
+const displayAlert = (delay, slideUp, html, isError = false) => {
+    if(!isError)
         $('#ajax_msg').css("display", "block").delay(delay).slideUp(slideUp).html(html);
-    } else { //Si c'est une erreur on change la couleur
+    else //Si c'est une erreur on change la couleur
         $('#ajax_msgerror').css("display", "block").delay(delay).slideUp(slideUp).html(html);
-    }
 }
 
 /**
  * Rend un élément éditable 
  * @param {HTMLElement} div
  */
-function makeElementEditable(div) {
-    $(div).attr("contentEditable", "true");
-}
+const makeElementEditable = div => $(div).attr("contentEditable", "true")

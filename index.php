@@ -74,7 +74,7 @@
                     <div class="form-group">
                         <label for="ville" class="col-md-2 control-label">Ville</label>
                         <div class="col-md-10 ">
-                        <select class="form-control" id="ville">
+                        <select class="form-control" id="ville" required>
                             <option value="paris">Paris</option>
                             <option value="lyon">Lyon</option>
                             <option value="marseille">Marseille</option>
@@ -196,12 +196,11 @@
                     <div class='form-group'>
                         <label for='edit-ville' class='col-md-2 control-label'>Ville</label>
                         <div class='col-md-10 editable-ville'>
-                        <input
-                            id='edit-ville'
-                            onclick='makeElementEditable(this)'
-                            class='form-control'
-                            type='text'
-                            required>
+                            <select id="edit-ville" class="form-control">
+                                <option class="edit-option" value="Paris">Paris</option>
+                                <option class="edit-option" value="Marseille">Marseille</option>
+                                <option class="edit-option"  value="Lyon">Lyon</option>
+                            </select>
                         </div>
                     </div>
                     <button

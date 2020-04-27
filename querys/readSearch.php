@@ -2,16 +2,16 @@
 
 include_once '../Database.php';
 
-if(isset($_POST['word']) && !empty($_POST['word'])) {
-    $word = trim(htmlspecialchars($_POST['word']));
+if(isset($_POST['typedWord']) && !empty($_POST['typedWord'])) {
+    $typedWord = trim(htmlspecialchars($_POST['typedWord']));
 
     try {
         $searchQuery = "SELECT id, name, prenom
         FROM ca2 
         WHERE lower(prenom)
-        LIKE '$word%'
+        LIKE '$typedWord%'
         OR lower(name)
-        LIKE '$word%'";
+        LIKE '$typedWord%'";
 
         $statement =  $conn->prepare($searchQuery);
         $statement->execute();
