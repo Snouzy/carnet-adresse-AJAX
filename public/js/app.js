@@ -10,34 +10,37 @@ const regexps = {
     'ville' : villesPossibles
 }
 
+
 $(document).ready(function () {
-    // Chargement de la bonne liste des contacts en fonction de la page (économise une requête SELECT * non négligeable);
+    // Chargement de la bonne liste des contacts en fonction de la page (économise une requête SELECT * non négligeable)
     lastURIElement !== "allContacts.php" ? displayNomsAndPrenoms(): displayTableurVue();
 
     /**
-     * Au click sur "Fermer le formulaire" 
+     * @description Au click sur "Fermer le formulaire", ré-initialise le formulaire et affiche la vue principale
      */
     $("#closeForm").click(function(e) {
         e.preventDefault();
-        $("#createForm").fadeOut(() => $("#contact-section").fadeIn());
+        $("#createForm").fadeOut(() => {$("#contact-section").fadeIn(); resetForm("#create-contact");});
     });
 
     /**
-     * Au click sur la croix rouge 
+     * @description Au click sur la croix rouge, désactive la preview du contact
      */
     $('#close-coordonnees').click(() => $('#coordonnees-contact').fadeOut())
 
     /**
-     * Au click sur "Ajouter" 
+     * @description
+     * Au click sur "Ajouter", on reset le formulaire et on affiche seulement le formulaire d'ajout
      */
     $("#add").click(function(e){
         e.preventDefault();
+        resetForm("#create-contact");
         $("#coordonnees-contact").fadeOut();
         $("#contact-section").fadeOut(() => $("#createForm").fadeIn())
     });
 
     /**
-     * A la perte du focus dans la recherche 
+     * @description A la perte du focus dans la search bar on reset le champ
      */
     $('#search').blur(function() {
         $('.row-result').fadeOut();
@@ -45,7 +48,8 @@ $(document).ready(function () {
     });
 
     /**
-     * Quand l'utilisateur recherche
+     * @description 
+     * Quand l'utilisateur tape dans la barre de recherche, on envoie une requête ajax pour récupérer les utilisateurs correspondants
      */
     $('#search').keyup(function() {
         const typedWord = $(this).val();
@@ -66,7 +70,7 @@ $(document).ready(function () {
     })
     
     /**
-     * A l'envoi du formulaire 
+     * @description A l'envoi du formulaire 
      */
     $('#create-contact').submit(function (event) {
         event.preventDefault();
@@ -84,22 +88,103 @@ $(document).ready(function () {
                     displayAlert(3000, 300, data.message);
                     displayTableurVue();
                     displayNomsAndPrenoms();
-                    $("#createForm").fadeOut("400", function(){
+                    $("#createForm").fadeOut(() => {
                         $("#contact-section").fadeIn();
                         displayInfo(data.id);
                     });
-                    //reset the form
-                    $("#create-contact")[0].reset();
+                    //reset le form
+                    resetForm("#create-contact");
                 }
             });
+
         }
     });
+
+    /**
+     * @description Quand l'utilisateur ajoute ou modifie un contact
+     */
+    $('.createForm--input, .editForm--input').each(function () {
+        $(this).keyup(function() {
+            if($(this).attr('id').includes("edit")) checkInstantForm($(this), true); //Si c'est une édition
+            else checkInstantForm($(this)); // Si c'est un ajout
+        });
+        $(this).blur(function() {
+            $(`#${$(this).get(0).id}-message`).fadeOut(); //On enlève tous les messages
+        });
+    })
 });
 
 /**
- * Formate et affiche la vue tableur
+ * @description se charge de réinitialiser le formulaire (valeurs + icônes d'infos)
+ * @param {string} formId l'id du formulaire à reset
  */
-async function displayTableurVue() {
+const resetForm = formId => {
+    console.log(formId);
+    $(formId)[0].reset();
+    //Enlève les messages ainsi que les icônes
+    $('.form-info--icon, .form-info--message').each(function(){
+        $(this).css("display", "none");
+    });
+}
+
+/**
+ * @description 
+ * Rend le visuel en fonction de l'entrée de l'utilisateur qui est valide ou non
+ * @param {string} eltId -> L'id de l'input à modifier
+ * @param {boolean} isAnError=false -> Le nom de l'icône à afficher ou supprimer
+ */
+const setVisualOfInput = (eltId, isAnError = false) => {
+    let color = '#008000';
+    let elementToFadeOut = 'error'
+    let elementToFadeIn = 'check'
+
+    //Si c'est une erreur on change les paramètres afin de rendre visuellement la bonne couleur & icon
+    if(isAnError) {
+        color = '#ff0000';
+        elementToFadeOut = 'check';
+        elementToFadeIn = 'error';
+    } else $(`.${eltId}-message`).fadeOut("fast")
+
+    // Les actions communes aux erreurs et aux succès
+    $(`.${eltId}-${elementToFadeOut}-icon`).fadeOut("fast", () => {
+        $(`.${eltId}-${elementToFadeIn}-icon`).fadeIn().css({'color': color, 'display':'block'});
+    });
+    $(`.${eltId}`).css('background-image', `linear-gradient(${color}, ${color}), linear-gradient(rgb(210, 210, 210), rgb(210, 210, 210))`);
+}
+
+/**
+ * @description Rend en temps réel des informations sur le formulaire (texte et icônes)
+ * @param {any} el élément du formulaire
+ * @param {any} isEditModeEnabled=false est-ce que c'est une édition
+ */
+const checkInstantForm = (el, isEditModeEnabled = false) => {
+    let propToCheck = el.get(0).id;
+    const valToCheck = el.val();
+
+    if(isEditModeEnabled) {
+        //On récupère seulement les caractères après le " - " pour effectuer la regex dans l'object global rejexp
+        const propToCheckArr = propToCheck.split('');
+        const positionToCut = propToCheckArr.indexOf('-');
+        propToCheck = propToCheckArr.slice(positionToCut + 1).join('');
+        console.log(propToCheck);
+    } 
+    //Si le champ est vide
+    if(valToCheck == "") {
+        $(`.${propToCheck}-message`).fadeIn().html('Le champ ci-dessus ne peut être vide.').css('color', 'red');
+        setVisualOfInput(propToCheck, true);
+        //Evite de rentrer dans la prochaine boucle car valToCheck.length est < 2 s'il est vide
+        return; 
+    } else if(!regexps[propToCheck].test($(el[0]).val()) || valToCheck.length < 2) { // Si le champ est invalide
+        $(`.${propToCheck}-message`).fadeIn("fast").html(`La valeur ${propToCheck} n'est pas valide`).css('color','red');
+        setVisualOfInput(propToCheck, true);
+    }
+    else setVisualOfInput(propToCheck); // Le champ est valide
+}
+
+/** 
+ * @description Récupère tous les conctacts et formate/affiche la vue tableur
+ */
+const displayTableurVue = async () => {
     try {
         const data = await getAllContacts();
         let allHtmlData = "";
@@ -148,9 +233,9 @@ async function displayTableurVue() {
 }
 
 /**
- * Formate et affiche la vue noms / prénoms
+ * @description Récupère la liste des contacts et formate/affiche la liste des contacts à l'accueil
  */
-async function displayNomsAndPrenoms() {
+const displayNomsAndPrenoms = async() => {
     try {
         const data = await getAllContacts();
         let allHtmlData = "";
@@ -176,7 +261,7 @@ async function displayNomsAndPrenoms() {
 }
 
 /**
- * Va chercher tous les contacts depuis readAll qui lui fera la requête
+ * @description Va chercher tous les contacts depuis readAll.php qui lui fera la requête
  * @returns {promise}
  */
 function getAllContacts() {
@@ -192,7 +277,7 @@ function getAllContacts() {
 }
 
 /**
- * Permet de faire les vérifs avant de submit le formulaire 
+ * @description Permet de refaire les vérifs avant de submit le formulaire (2 sécurisation valent mieux qu'une !)
  * @returns {bool} //true : le formulaire est valide, false : invalide
  */
 const checkForm = () => {
@@ -215,7 +300,7 @@ const checkForm = () => {
 }
 
 /**
- * Permet de vérifier le formulaire avant d'effectivement update les infos
+ * @description Permet de vérifier le formulaire avant d'effectivement update les infos
  * @param {HTMLElement} target
  * @param {string} prop
  * @param {string} id
@@ -230,7 +315,7 @@ const updateValidator = (target, prop, id) => {
             return false
         }
     } else {
-        if(!regexp.test(value)) {
+        if(!regexp.test(value) || value.length < 2) {
             displayAlert(3000, 300, `Le champ ${prop} n'est pas valide`, true);
             return false
         }
@@ -239,9 +324,7 @@ const updateValidator = (target, prop, id) => {
 }
 
 /**
- * Fonction qui est appelée après avoir vérifié les données saisies
- * (rôle de updateValidator())
- * => Met à jour la liste des contacts 
+ * @description s'occupe d'envoyer les données à mettre à jour dans la DB
  * @param {HTMLElement} target
  * @param {string} prop
  * @param {string} id
@@ -264,7 +347,7 @@ const update = (target, prop, id) => {
 }
 
 /**
- * Supprime et met à jour les listes des contacts 
+ * @description Supprime et met à jour les listes des contacts 
  * @param {string} id
  * @returns {bool}
  */
@@ -287,11 +370,22 @@ const deleteContact = id => {
 }
 
 /**
- * Permet d'avoir une preview du contact sélectionné
+ * @description Permet d'avoir une preview du contact sélectionné - cliqué
  * @param {string} id
  */
 const displayInfo = id => {
-    $('#coordonnees-contact').fadeIn();
+    if($('.contact-line').hasClass('active')) {
+        $('.contact-line').removeClass('active');
+    }
+    // Permet de ré-initialiser les messages et icônes d'information pour chaque contact
+    const tousLesChamps = ["name", "prenom", "email", "telephone"];
+    for(let el of tousLesChamps) {
+        $(`.${el}-message, .${el}-check-icon, .${el}-error-icon`).css("display","none");
+    }
+    // Puis on commence 
+    $('#coordonnees-contact').fadeIn(() => {
+        $('.contact-line').addClass('active');
+    });
     $.ajax({
         url: 'querys/readOne.php',
         method: 'POST',
@@ -323,7 +417,7 @@ const displayInfo = id => {
 }
 
 /**
- * Permet d'afficher une toast notification en fonction de si c'est une erreur ou pas
+ * @description Permet d'afficher une toast notification en fonction de si c'est une erreur ou pas
  * @param {int} delay
  * @param {int} slideUp
  * @param {string} html
@@ -337,7 +431,7 @@ const displayAlert = (delay, slideUp, html, isError = false) => {
 }
 
 /**
- * Rend un élément éditable 
+ * @description Rends un élément éditable 
  * @param {HTMLElement} div
  */
 const makeElementEditable = div => $(div).attr("contentEditable", "true")

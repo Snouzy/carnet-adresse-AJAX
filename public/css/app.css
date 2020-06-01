@@ -5,16 +5,63 @@
 * {
     font-family: Poppins, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
+hr.contact-line {
+    opacity: 0;
+}
+hr.active {
+    opacity: 1;
+    animation: hr-discover 1s ease-out forwards;
+    background-color: lightblue;
+    border: 0; 
+    height: 1.5px; 
+    background-image: -webkit-linear-gradient(left, #f0f0f0, lightblue, #f0f0f0);
+    background-image: -moz-linear-gradient(left, #f0f0f0, lightblue, #f0f0f0);
+    background-image: -ms-linear-gradient(left, #f0f0f0, lightblue, #f0f0f0);
+    background-image: -o-linear-gradient(left, #f0f0f0, lightblue, #f0f0f0); 
+}
+@keyframes hr-discover {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+.form-group.has-error label.control-label, .form-group.has-error .help-block, .form-group.is-focused label, .form-group.is-focused label.control-label {
+    color: #bdbdbd !important;
+}
+.form-group select {
+    -webkit-appearance: menulist !important;
+}
+/* .form-group.is-focused label, .form-group.is-focused label.control-label {
+    color: #18AEE0; */
 ul, ol {
     margin: 0;
 }
+
 svg {
     border-radius: 10px;
 }
-.white{
+
+.white {
     background-color: white;
-    border-radius: 10px;
+    position: relative;
+    border-radius: 11px;
+	-webkit-box-shadow: 0 0.5px 0 0 #ffffff inset, 0 1px 2px 0 #B3B3B3;
+	-moz-box-shadow: 0 0.5px 0 0 #ffffff inset, 0 1px 2px 0 #B3B3B3;
+    box-shadow: 0 0.5px 0 0 #ffffff inset, 0 1px 2px 0 #B3B3B3;
 }
+
+#search {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+#search:hover {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.24);
+}
+
 .row-search, .row-result, .row-contact {
     display: flex;
     flex-direction: row;
@@ -34,22 +81,29 @@ svg {
     margin: 0 !important;
     padding-bottom: 0 !important;
 }
+
 .coordonnees-contact--row {
     display: flex !important;
     justify-content: space-between !important;
-    align-items: center;
+    align-items: baseline;
+}
+.coordonnees-contact--title {
+    width: 90%;
 }
 
 .actions-bar {
     display: flex;
     justify-content: space-between;
 }
+
 .navbar {
     background-color: #18AEE0 !important;
 }
+
 .fa-info-circle {
     color: #6fc8e0 !important;
 }
+
 #ajax_msg, #ajax_msgerror {
     position: fixed;
     right: 0;
@@ -59,9 +113,11 @@ svg {
     text-align: center;
     display: none;
 }
+
 #ajax_msg {
     background-color: green !important;
 }
+
 #ajax_msgerror {
     background-color: red !important;
 }
@@ -69,30 +125,98 @@ svg {
 #coordonnees-contact--title {
     margin-bottom: 20px !important;
 }
+
 /* 
 ===============
- Tables 
+ Tables / Form
 ===============*/
+/* Le style d'onglet */
+.box-tab {
+    width: 50%;
+    height: 40px;
+    background: white;
+    position: absolute;
+    height: 43.7px;
+    top: calc(-20px);
+    left: 0;
+    z-index: 1;
+    border-radius: 11px 6px 0 0;
+    -webkit-transform: perspective(5px) rotateX(0.93deg) translateZ(-1px);
+    transform: perspective(5px) rotateX(0.93deg) translateZ(-1px);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-box-shadow: 4px -7px 2.9px -5px rgba(0, 0, 0, 0.32);
+    -moz-box-shadow: 4px -7px 2.9px -5px rgba(0, 0, 0, 0.32);
+    box-shadow: 4px -7px 2.9px -5px rgba(0, 0, 0, 0.32);
+}
+
+/* Messages et icônes d'informations pour le formulaire :*/
+.form-info--icon {
+    display: none;
+    margin-left: 2rem;
+    font-size: 2rem;
+}
+
+.form-info--message {
+    display: none;
+    margin-left: 2rem;
+    font-size: 1.1rem;
+}
+
+.createForm--row, .editForm--row {
+    display: flex;
+    align-items: center;
+}
+
+.createForm--input {
+    width: 90% !important;
+    margin-left: 2rem;
+}
+
+.editForm--input {
+    width: 85% !important;
+    margin-left: 2rem;
+}
+
+.message-icon {
+    display: flex;
+    align-items: baseline;
+}
+
+.message-icon::after {
+    content: 'hey';
+}
+
 .table-names {
     height: 40vh;
     overflow: auto;
 }
+
 #close-coordonnees {
-    font-size: 2.3rem;
-    color:red;
+    font-size: 3.3rem;
+    color: #ea5757;
     cursor: pointer;
+    position: absolute;
+    top: -1.2rem;
+    right: -1.2rem;
 }
+
 #dateCreation {
     cursor: pointer;
 }
-.table-striped{
+
+.table-striped {
     border: none !important;
 }
+
 #createForm {
     margin: 20px;
     padding: 20px;
     display: none;
 }
+
 #coordonnees-contact {
     display: none;
 }
@@ -101,7 +225,6 @@ svg {
     margin: 20px;
     padding: 20px;
 }
-
 
 #first-line {
     display: flex !important;
@@ -122,17 +245,21 @@ button[name="createBtn"] {
     color: #6fc8e0 !important;
     border-radius: 20px !important;
 }
-.btn-danger {
+.btn-date, .btn-danger {
     border-radius: 20px !important;
-    border: none !important;
 }
+.btn-danger {
+    border: none !important;
+    color: #ea5757 !important;
+}
+
 .customBtn {
     color: #fff !important;
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
     line-height: 45px;
-    padding: 3px 20px;
+    padding: 0px 20px;
     position: relative;
     text-decoration: none;
     border-width: 0;
@@ -150,6 +277,7 @@ button[name="createBtn"] {
     border-radius: 7px;
     outline: none;
 }
+
 .btn-danger {
     outline: none !important;
 }
@@ -176,7 +304,6 @@ button[name="createBtn"] {
     transition: all 0.35s linear;
 }
 
-
 .customBtn-1:hover rect {
     stroke-width: 5;
     stroke-dasharray: 15, 310;
@@ -188,26 +315,18 @@ button[name="createBtn"] {
 ===============
 Autre 
 ===============*/
-
-
 a[href="allContacts.php"] {
     display: block;
     font-size: 16px;
 }
+
 .editable {
     cursor: pointer;
 }
+
 .editable-tableur {
     width: 100%;
 }
-.editable:hover {
-    background-color: #def4fb;
-    background-size: 100%;
-    border-radius: 3px;
-}
-
-
-
 
 /* 
 ===============
@@ -217,6 +336,7 @@ Titles & descrptions
     width: 60%;
     margin: 0 auto;
 }
+
 h1 { color: #111; font-family: 'Poppins', sans-serif; font-weight: 700; line-height: 64px; margin: 0 0 0; padding: 20px 30px; text-align: center; text-transform: uppercase; }
 
 .resume { color: #111; font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 28px; margin: 0 0 48px; text-align: center;}
@@ -231,8 +351,6 @@ Date & Name (Lined)
 .text-line:nth-child(3) {margin-bottom: 3vh;}
 .line { border-top: 1px solid #111; display: block; margin-top: 60px; padding-top: 50px; position: relative; }
 
-
-
 /* 
 ===============
  Search Bar 
@@ -246,20 +364,24 @@ Date & Name (Lined)
         align-items: center;
     font-family: 'Poppins', sans-serif;
     padding: 15px;
+    margin-bottom: 3rem;
 }
+
 .s128 .container-search {
     width: 100%;
     max-width: 570px;
     margin: 0;
 }
+
 .s128 .container-search .inner-form .row .results-field {
     position: relative;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: center;
         justify-content: center;
-  }
-  .s128 .container-search .inner-form .row .results-field input {
+}
+
+.s128 .container-search .inner-form .row .results-field input {
     height: 60px;
     width: 60px;
     border: 0;
@@ -275,12 +397,13 @@ Date & Name (Lined)
     font-size: 18px;
     font-weight: 300;
     opacity: 1;
-  }
+}
 
 .s128 .container-search .inner-form .row .results-field input:hover, .s128 .container-search .inner-form .row .results-field input:focus {
     box-shadow: none;
     outline: 0;
 }
+
 .s128 .container-search .inner-form .row .results-field.search input {
     padding: 10px 60px 10px 0;
     width: 60px;
@@ -291,24 +414,29 @@ Date & Name (Lined)
     background-color: #fff;
     background-size: 34px 34px;
 }
+
 .s128 .container-search .inner-form .row .results-field.search input.placeholder {
     color: #666;
     transition: opacity .1s;
 }
+
 .s128 .container-search .inner-form .row .results-field.search input:focus {
     width: 100%;
     padding-left: 15px;
 }
+
 .row-result {
     display: none;
     margin: 0;
     width: 100%;
 }
+
 .results {
     padding-top: 2rem;
     padding-bottom: 2rem;
     width: 100%;
 }
+
 .result {
     position: relative;
     display: block;
@@ -340,6 +468,7 @@ Scrollbar
 ::-webkit-scrollbar {
     width: 12px;
 }
+
 /* Track */
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 1); 
@@ -347,25 +476,42 @@ Scrollbar
     border-radius: 10px;
     border: 1px solid rgb(212, 212, 212);
 }
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background: #6fc8e0; 
 }
+
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: #6fc8e0; 
 }
 
-
 /* ==-- Iphone --== */
 @media only screen and (max-device-width : 768px) {
-    
     .row-search, .row-contact {
         flex-direction: column;
         margin: 0 auto;
     }
 
+    .createForm-row--endButtons, .editForm-row--endButtons {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: flex-end;
+        margin-top: 2rem;
+    }
+    .createForm-row--endButtons > button,
+    .editForm-row--endButtons > button {
+        margin: 0;
+    }
+    .editForm-row--endButtons {
+        margin-bottom: 2rem;
+    }
+    
+    .box-tab {
+        height: 30px;
+    }
     a[href="allContacts.php"], .navbar-toggle {
         display: none;
     }
@@ -376,11 +522,14 @@ Scrollbar
 
     #contact-section {
         /* margin: 10px 10px 10px 0px; */
+        margin-bottom: 5rem;
         padding: 20px;
     }
+
     #createForm,  #coordonnees-contact{
         margin-bottom: 5rem;
     }
+
     .table-names {
         height: 23vh;
     }
@@ -388,6 +537,7 @@ Scrollbar
     .container {
         margin-bottom: 15rem;
     }
+
     .container-intro {
         width: 95%;
     }
@@ -395,8 +545,10 @@ Scrollbar
     .actions-bar {
         justify-content: flex-end;
     }
+
     .customBtn {
         line-height: 25px;
         padding: 5px 14px 5px 14px;
     }
 }
+
