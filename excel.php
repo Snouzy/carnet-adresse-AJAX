@@ -37,7 +37,7 @@ if(isset($_POST['export_excel'])) {
 
     // Téléchargement
     header("Content-Type: application/xls; charset=utf-8");
-    header("Content-Disposition: attachment; filename=abc.xls");
+    header("Content-Disposition: attachment; filename=netty_contacts.xls");
     echo "\xEF\xBB\xBF"; // UTF-8 fix (bug on the mac...)
     echo $output;
 }
