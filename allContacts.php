@@ -3,7 +3,7 @@
 <?php include_once 'commons/header.php';?>
 
     <div class="container-fluid">
-        <section class="col .col-xs-12 .col-sm-6 .col-md-8 col-lg-12 main">
+        <section class="col col-xs-12 col-sm-6 col-md-8 col-lg-12 main">
             <h3>Vue tableur</h3><hr>
 
             <table class="table table-striped table-bordered table-responsive">
@@ -22,6 +22,9 @@
                 <tbody id="all-contact-list"> </tbody>
             </table>
         </section>
+        <form action="excel.php" method="POST">
+            <button name="export_excel" type="submit">Exporter pour excel</button>
+        </form>
     </div>
 
 <?php include_once 'commons/footer.php'; ?>
