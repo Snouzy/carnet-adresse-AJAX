@@ -22,8 +22,10 @@
                 <tbody id="all-contact-list"> </tbody>
             </table>
         </section>
-        <form action="excel.php" method="POST">
+        <form action="exports.php" method="POST">
             <button name="export_excel" type="submit">Exporter pour excel</button>
+            <button name="export_json" type="submit">Exporter au format JSON</button>
+            <button name="export_csv" type="submit">Exporter au format CSV</button>
         </form>
     </div>
 
